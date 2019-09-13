@@ -20,7 +20,8 @@ cd devops
 docker-compose build
 docker-compose up -d
 ```
-2. ! : Uniquement au 1er setup!
+2. (!: Uniquement au 1er setup!)
+
 Créer les Roles dans la bdd (pour l'instant il faut le faire manuellement; il y moyen de le faire automatiquement, c'est en cours...):
 ```bash
 docker exec -it devops_bdd_1 bash
@@ -50,7 +51,7 @@ et dans body il faut passer à Raw et se mettre sur 'application/json', puis ren
  - Pour insérer un workingtime : (pour l'user dont l'id=1 par exemple) 
 POST http://localhost:3001/workingtimes/1
 ```json
-{{
+{
 	"workingtime": {
 		"id_user" : "1",
 		"start" : "2019-09-12T15:35:00.000Z",
@@ -59,7 +60,17 @@ POST http://localhost:3001/workingtimes/1
 }
 ```
  - Pour get :
+
  GET http://localhost:3001/users
+
  GET http://localhost:3001/users/1
+
  GET http://localhost:3001/users?username=Bob&email=bob@test.com
+ 
 ...etc
+
+
+3. Pour stopper les containers: 
+```bash
+docker-compose stop
+```
