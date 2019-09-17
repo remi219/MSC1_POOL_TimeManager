@@ -1,4 +1,4 @@
-# MSC1_POOL_TimeManager
+	# MSC1_POOL_TimeManager
 ## Mini-projet 3 (DevOps)
 
 Mise en place de 3 containers Docker (API, FRONT et BDD)
@@ -14,26 +14,26 @@ Installer Docker et docker-compose
 ## Usage
 
 
-1. Lancer les containers:
+Lancer les containers:
 ```bash
 cd devops
 docker-compose build
 docker-compose up -d
 ```
-~~2. (!: Uniquement au 1er setup!)
+~~2. (!: Uniquement au 1er setup!)~~
 
-Créer les Roles dans la bdd (pour l'instant il faut le faire manuellement; il y moyen de le faire automatiquement, c'est en cours...):~~
-~~```bash
+~~Créer les Roles dans la bdd (pour l'instant il faut le faire manuellement; il y moyen de le faire automatiquement, c'est en cours...):~~
+```bash
 docker exec -it devops_bdd_1 bash
 mysql -p
-```~~
-~~Enter password: null
+```
+~~Enter password: **null**~~
 ```sql
 INSERT INTO Roles (label, createdAt, updatedAt) VALUES ("Administrator", CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 INSERT INTO Roles (label, createdAt, updatedAt) VALUES ("Manager", CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 INSERT INTO Roles (label, createdAt, updatedAt) VALUES ("Employee", CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 ```
-Ensuite Ctrl+D pour quitter mysql et encore Ctrl+D pour sortir du container.~~
+~~Ensuite Ctrl+D pour quitter mysql et encore Ctrl+D pour sortir du container.~~
 
 Après vous pouvez tester avec Postman.
  
