@@ -1,0 +1,31 @@
+version: '3'
+services:
+  front:
+    build:
+      context: ./front/hello-world
+    ports:
+      - "8080:8080"
+  api:
+    build:
+      context: ./api
+    #environment:
+      #- "DB_HOSTNAME: mysql"
+    ports:
+      - "3001:3000"
+    depends_on:
+      - "bdd"
+  bdd:
+    image: mysql:5.7
+    environment:
+      - "MYSQL_ALLOW_EMPTY_PASSWORD"
+      - "MYSQL_USER=remi"
+      - "MYSQL_PASSWORD=remi"
+      - "MYSQL_ROOT_PASSWORD=null"
+      - "MYSQL_DATABASE=timemanager"
+    expose:
+      - "3306"
+    volumes:
+      - "TimeManager:/var/lib/mysql"
+volumes:
+  TimeManager:
+    
