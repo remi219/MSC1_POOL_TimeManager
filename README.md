@@ -36,7 +36,7 @@ INSERT INTO Roles (label, createdAt, updatedAt) VALUES ("Employee", CURRENT_TIME
 ```
 ~~Ensuite Ctrl+D pour quitter mysql et encore Ctrl+D pour sortir du container.~~
 
-Après vous pouvez tester avec Postman.
+3.Après vous pouvez tester avec Postman.
  
  - Pour insérer un user :
 POST http://localhost:3001/users
