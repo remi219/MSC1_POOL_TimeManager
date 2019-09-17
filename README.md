@@ -20,7 +20,8 @@ cd devops
 docker-compose build
 docker-compose up -d
 ```
-~~2. (!: Uniquement au 1er setup!)~~PLUS BESOIN, C'EST FAIT AUTOMATIQUEMENT
+~~2. (!: Uniquement au 1er setup!)~~
+PLUS BESOIN, C'EST FAIT AUTOMATIQUEMENT
 
 ~~Créer les Roles dans la bdd (pour l'instant il faut le faire manuellement; il y moyen de le faire automatiquement, c'est en cours...):~~
 ```bash
