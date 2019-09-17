@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "root",
+    "password": "null",
+    "database": "timemanager",
+    "host": "bdd",
+    "dialect": "mysql",
+    "seederStorage": "sequelize"
+  },
+  "test": {
+    "username": "remi",
+    "password": "remi",
+    "database": "timemanager_test",
+    "host": "bdd",
+    "dialect": "mysql",
+    "seederStorage": "sequelize"
+  },
+  "production": {
+    "username": "remi",
+    "password": "remi",
+    "database": "timemanager_production",
+    "host": "bdd",
+    "dialect": "mysql",
+    "seederStorage": "sequelize"
+  }
+}
