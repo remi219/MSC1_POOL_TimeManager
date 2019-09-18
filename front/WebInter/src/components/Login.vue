@@ -7,7 +7,7 @@
             <span class="md-title">Time Manager</span>
           </div>
           <md-card-media>
-            <img src="./assets/logogc.png" alt="Avatar">
+            <img src="../assets/logogc.png" alt="Avatar">
           </md-card-media>
         </div>
 
@@ -24,7 +24,7 @@
               <md-card-content>
                 <div class="md-layout-item">
                   <md-avatar class="md-large">
-                    <img src="./assets/avatar-2.jpg" alt="People">
+                    <img src="../assets/avatar-2.jpg" alt="People">
                   </md-avatar>
                   <md-field>
                     <label for="username">Username</label>

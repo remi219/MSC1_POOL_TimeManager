@@ -18,24 +18,29 @@ export default new Router({
       component: Connection,
     },
     {
-      path: '/workingtimes',
-      name: 'WorkingTimes',
-      component: WorkingTimes,
-    },
-    {
       path: '/login',
       name: 'Login',
       component: Login,
     },
     {
-      path: '/workingtime',
-      name: 'WorkingTime',
-      component: WorkingTime,
+      path: '/signup',
+      name: 'Signup',
+      component: Signup,
     },
     {
       path: '/users',
       name: 'Users',
       component: Users,
+    },
+    {
+      path: '/workingtimes',
+      name: 'WorkingTimes',
+      component: WorkingTimes,
+    },
+    {
+      path: '/workingtime',
+      name: 'WorkingTime',
+      component: WorkingTime,
     },
     {
       path: '/clockmanager',

@@ -7,7 +7,7 @@
             <span class="md-title">Time Manager</span>
           </div>
           <md-card-media>
-            <img src="./assets/logogc.png" alt="Avatar">
+            <img src="../assets/logogc.png" alt="Avatar">
           </md-card-media>
         </div>
 
