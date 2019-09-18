@@ -1,5 +1,5 @@
 let express = require('express');
-let jwt = require('jwt');
+let jwt = require('jsonwebtoken');
 let models = require('../models/index');
 const secretkey = 'mysecretkey';
 
