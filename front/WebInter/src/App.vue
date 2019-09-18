@@ -1,15 +1,20 @@
 <template>
   <div id="app">
-    <router-view />
+    <Navbar></Navbar>
+    <router-view></router-view>
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
-import Connection from './components/Login';
+  import Navbar from './components/Navbar';
+  import Login from './components/Login';
+  import Footer from "./components/Footer";
 
 export default {
   name: 'App',
-  component: 'Connection',
+  components: {Navbar, Footer},
+  component: 'Login',
 };
 </script>
 
