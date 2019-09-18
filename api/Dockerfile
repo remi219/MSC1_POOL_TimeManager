@@ -5,7 +5,7 @@ WORKDIR /usr/src/app
 COPY . .
 
 RUN npm install && \
-	npm install -g sequelize sequelize-cli mysql2
+	npm install -g sequelize sequelize-cli mysql2 jsonwebtoken
 
 EXPOSE 3000
 
