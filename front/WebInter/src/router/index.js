@@ -3,8 +3,8 @@ import Router from 'vue-router';
 import Users from '../components/Users';
 import WorkingTimes from '../components/WorkingTimes';
 import WorkingTime from '../components/WorkingTime';
+import Signup from '../components/Signup';
 import Login from '../components/Login';
-import Connection from '../components/Connection';
 import ClockManager from '../components/ClockManager';
 
 
@@ -12,11 +12,6 @@ Vue.use(Router);
 
 export default new Router({
   routes: [
-    {
-      path: '/',
-      name: 'Connection',
-      component: Connection,
-    },
     {
       path: '/login',
       name: 'Login',

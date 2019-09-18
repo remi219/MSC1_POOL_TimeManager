@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Connection from './components/Connection';
+import Connection from './components/Login';
 
 export default {
   name: 'App',
