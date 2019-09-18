@@ -1,10 +1,12 @@
 <template>
-
+  <div>
+    <p>See you soon!</p>
+  </div>
 </template>
 
 <script>
     export default {
-        name: "navbar"
+        name: "Logout"
     }
 </script>
 
