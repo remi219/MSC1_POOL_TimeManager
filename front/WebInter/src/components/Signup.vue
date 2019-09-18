@@ -1,4 +1,6 @@
 <template>
+  <!-- eslint-disable -->
+
   <div class="page-container">
     <md-app md-waterfall md-mode="fixed-last">
       <md-app-toolbar class="md-large md-dense md-primary" style="background-color: #4682B4">
@@ -16,7 +18,8 @@
       <md-app-content>
         <div id="from">
           <div class="md-layout md-alignment-center">
-            <md-card class="md-layout-item md-size-30 md-small-size-100" style="background-color: #e9ecef">
+            <md-card class="md-layout-item md-size-30 md-small-size-100"
+                     style="background-color: #e9ecef">
               <md-card-header>
                 <h1>Connection</h1>
               </md-card-header>
@@ -28,26 +31,45 @@
                   </md-avatar>
                   <md-field>
                     <label for="username">Username</label>
-                    <md-input name="username" id="username" autocomplete="given-name" v-model="form.username"/>
+                    <md-input name="username"
+                              id="username"
+                              autocomplete="given-name"
+                              v-model="form.username"/>
                   </md-field>
                   <md-field>
                     <label for="firstname">Fisrt Name</label>
-                    <md-input name="firstname" id="firstname" autocomplete="given-name" v-model="form.firstname"/>
+                    <md-input name="firstname"
+                              id="firstname"
+                              autocomplete="given-name"
+                              v-model="form.firstname"/>
                   </md-field>
                   <md-field>
                     <label for="lastname">Last Name</label>
-                    <md-input name="lastname" id="lastname" autocomplete="given-name" v-model="form.lastname"/>
+                    <md-input name="lastname"
+                              id="lastname"
+                              autocomplete="given-name"
+                              v-model="form.lastname"/>
                   </md-field>
                   <md-field>
                     <label for="email">Email</label>
-                    <md-input type="email" name="email" id="email" autocomplete="email" v-model="form.email"/>
+                    <md-input type="email"
+                              name="email"
+                              id="email"
+                              autocomplete="email"
+                              v-model="form.email"/>
                   </md-field>
                 </div>
               </md-card-content>
               <md-card-actions>
-                <md-button class="md-raised md-primary" style="margin: auto" v-on:click=""><router-link style="color: #FFFF;" :to="{ path: '/'}">Cancel</router-link>
+                <md-button class="md-raised md-primary" style="margin: auto">
+                  <router-link
+                    style="color: #FFFF;"
+                    :to="{ path: '/'}">Cancel</router-link>
                 </md-button>
-                <md-button class="md-raised md-primary" style="margin: auto" v-on:click=""><router-link style="color: #FFFF;" :to="{ path: 'Users'}">Done</router-link>
+                <md-button class="md-raised md-primary" style="margin: auto">
+                  <router-link
+                    style="color: #FFFF;"
+                    :to="{ path: 'Users'}">Done</router-link>
                 </md-button>
               </md-card-actions>
             </md-card>

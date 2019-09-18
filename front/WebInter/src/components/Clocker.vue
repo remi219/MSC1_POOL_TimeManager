@@ -23,12 +23,10 @@
       </md-app-toolbar>
       <md-app-content>
         <div id="clock">
-          <p>
            <h3> {{ new Date() | moment('Do MMMM YYYY - h:mm a')}} </h3>
            <br>
            <br>
            <br>
-          </p>
           <v-row justify="space-around" align="center">
             <v-col style="width: 480px; flex: 0 1 auto;">
               <v-time-picker v-model="start" :max="end" color="#269FB4" ></v-time-picker>

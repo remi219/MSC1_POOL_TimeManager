@@ -2,19 +2,18 @@
   <div id="app">
     <Navbar></Navbar>
     <router-view></router-view>
-    <Footer></Footer>
+    <Footer v-bind:title="footer_authors"></Footer>
   </div>
 </template>
 
 <script>
   import Navbar from './components/Navbar';
-  import Login from './components/Login';
   import Footer from "./components/Footer";
 
 export default {
   name: 'App',
+  footer_authors: "Team_21",
   components: {Navbar, Footer},
-  component: 'Login',
 };
 </script>
 

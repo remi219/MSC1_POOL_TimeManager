@@ -1,4 +1,6 @@
 <template>
+  <!-- eslint-disable -->
+
   <div class="page-container">
     <md-app md-waterfall md-mode="fixed-last">
       <md-app-toolbar class="md-large md-dense md-primary" style="background-color: #4682B4">
@@ -70,6 +72,7 @@
 
 
 <script>
+  /* eslint-disable */
 import WorkingTimes from './WorkingTimes';
 
 export default {

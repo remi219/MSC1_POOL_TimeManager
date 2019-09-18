@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable -->
   <div class="page-container">
     <md-app md-waterfall md-mode="fixed-last">
       <md-app-toolbar class="md-large md-dense md-primary" style="background-color: #4682B4">
@@ -17,7 +18,7 @@
           <div class="md-layout md-alignment-center">
             <md-card class="md-layout-item md-size-30 md-small-size-100" style="background-color: #e9ecef">
               <md-card-header>
-                <h1>Connection</h1>
+                <h1>Login</h1>
               </md-card-header>
 
               <md-card-content>
@@ -33,9 +34,11 @@
                 </div>
               </md-card-content>
               <md-card-actions>
-                <md-button class="md-raised md-primary" style="margin: auto" v-on:click=""><router-link style="color: #FFFF;" :to="{ path: 'Users'}">Login</router-link>
+                <md-button class="md-raised md-primary" style="margin: auto">
+                  <router-link style="color: #FFFF;" :to="{ path: 'Users'}">Login</router-link>
                 </md-button>
-                <md-button class="md-raised md-primary" style="margin: auto" v-on:click=""><router-link style="color: #FFFF;" :to="{ path: 'Login' }">Sign Up</router-link>
+                <md-button class="md-raised md-primary" style="margin: auto">
+                  <router-link style="color: #FFFF;" :to="{ path: 'Login' }">Sign Up</router-link>
                 </md-button>
               </md-card-actions>
             </md-card>
@@ -48,10 +51,11 @@
 
 
 <script>
-import WorkingTimes from './WorkingTimes';
+/* import WorkingTimes from './WorkingTimes'; */
 
 export default {
-  name: 'Connection',
+  /* eslint-disable */
+  name: 'Login',
   component: 'WorkingTimes',
   user: 'bruce',
   data() {

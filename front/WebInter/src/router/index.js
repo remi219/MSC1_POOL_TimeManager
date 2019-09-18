@@ -5,7 +5,7 @@ import WorkingTimes from '../components/WorkingTimes';
 import WorkingTime from '../components/WorkingTime';
 import Signup from '../components/Signup';
 import Login from '../components/Login';
-import ClockManager from '../components/ClockManager';
+import Clocker from '../components/Clocker';
 
 
 Vue.use(Router);
@@ -38,9 +38,9 @@ export default new Router({
       component: WorkingTime,
     },
     {
-      path: '/clockmanager',
-      name: 'ClockManager',
-      component: ClockManager,
+      path: '/clocker',
+      name: 'Clocker',
+      component: Clocker,
     },
 
   ],
