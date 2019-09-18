@@ -1,7 +1,29 @@
 let express = require('express');
+let jwt = require('jwt');
 let models = require('../models/index');
+const secretkey = 'mysecretkey';
 
 module.exports = {
+    login:function(req, res) {
+        const user = req.body.user;
+        jwt.sign({user : user}, secretkey, { expiresIn: '1h'}, (error, token) => {
+            res.json({
+                token: token
+            });
+        });
+    },
+    verifyToken: function(req, res, next) {
+        const bearerHeader = req.headers['authorization'];
+        if (typeof bearerHeader !== 'undefined') {
+            req.token = bearerHeader.split(' ')[1];
+            next();
+        } else {
+            res.json({
+                status: 403,
+                message: "Access denied"
+            })
+        }
+    },
     getUsers: function(req, res) {
         if (Object.keys((req.query)).length !== 0) {
             let username = req.query.username;
@@ -21,9 +43,15 @@ module.exports = {
         }).then(user => res.json(user));
     },
     createUser: function(req, res) {
-        return models.User.create(req.body.user)
-            .then(user => res.status(200).send('User successfully created! '+user))
-            .catch(error => res.status(500).send(error));
+        jwt.verify(req.token, secretkey, (error, authData) => {
+            if (error) {
+                res.json({ status: 403, message: "Forbidden" });
+            } else {
+                models.User.create(req.body.user)
+                    .then(user => res.status(200).json({ message: 'User successfully created! ', authData: authData }))
+                    .catch(error => res.status(500).send(error));
+            }
+        });
     },
     updateUser: function(req, res) {
         models.User.update({

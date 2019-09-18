@@ -2,7 +2,7 @@ version: '3'
 services:
   front:
     build:
-      context: ./front/hello-world
+      context: ./front/WebInter
     ports:
       - "8080:8080"
   api:
