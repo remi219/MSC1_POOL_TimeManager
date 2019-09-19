@@ -8,8 +8,13 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      username: {
-        allowNull: false,
+      firstname: {
+        allowNull: true,
+        default: 'new_user',
+        type: Sequelize.STRING
+      },
+      lastname: {
+        allowNull: true,
         default: 'new_user',
         type: Sequelize.STRING
       },
@@ -22,6 +27,11 @@ module.exports = {
             msg: "Must be a valid email address",
           }
         }
+      },
+      password: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true,
       },
       id_role: {
         allowNull: false,

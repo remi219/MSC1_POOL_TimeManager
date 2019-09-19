@@ -26,12 +26,10 @@ module.exports = {
     },
     getUsers: function(req, res) {
         if (Object.keys((req.query)).length !== 0) {
-            let username = req.query.username;
-            let email = req.query.email;
-            if (username !== undefined && email !== undefined) {
+            const email = req.query.email;
+            if (email !== undefined) {
                 models.User.findOne({
-                    where: { username: username },
-                    and: { email: email }
+                    where: { email: email }
                 }).then((user) => res.json(user));
             }
         } else {
@@ -55,8 +53,10 @@ module.exports = {
     },
     updateUser: function(req, res) {
         models.User.update({
-            username:  req.body.user.username,
+            firstname:  req.body.user.firstname,
+            lastname:  req.body.user.lastname,
             email: req.body.user.email,
+            password: req.body.user.password,
             id_role: req.body.user.id_role},
             { where: { id: req.params.id }})
             .then(user => res.status(200).send('User successfully updated! '+user))
