@@ -14,18 +14,6 @@ module.exports = {
             });
         });
     },
-    /*verifyToken: function(req, res, next) {
-        const bearerHeader = req.headers['authorization'];
-        if (typeof bearerHeader !== 'undefined') {
-            req.token = bearerHeader.split(' ')[1];
-            next();
-        } else
-            res.json({
-                status: 403,
-                message: "Access denied"
-            })
-        }
-    },*/
     getUsers: function(req, res) {
         if (Object.keys((req.query)).length !== 0) {
             const email = req.query.email;
@@ -43,15 +31,15 @@ module.exports = {
         }).then(user => res.json(user));
     },
     createUser: function(req, res) {
-        jwt.verify(req.token, secretkey, (error, authData) => {
+        /*jwt.verify(req.token, secretkey, (error, authData) => {
             if (error) {
                 res.json({ status: 403, message: "Forbidden" });
-            } else {
+            } else {*/
                 models.User.create(req.body.user)
                     .then(user => res.status(200).json({ message: 'User successfully created! ', authData: authData }))
                     .catch(error => res.status(500).send(error));
-            }
-        });
+            /*}
+        });*/
     },
     updateUser: function(req, res) {
         models.User.update({
@@ -66,7 +54,13 @@ module.exports = {
     },
     deleteUser: function (req, res) {
         models.User.destroy({ where: { id: req.params.id }})
-            .then(user => res.status(200).send('User successfully deleted! '+user))
+            .then(user => {
+                if (user === req.params.id) {
+                    res.status(200).send('User successfully deleted! '+user)
+                } else {
+                    res.status(200).send('No user found with this id '+user)
+                }
+            })
             .catch(error => res.status(500).send(error));
     }
 };

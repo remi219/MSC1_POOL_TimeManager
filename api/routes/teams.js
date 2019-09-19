@@ -1,7 +1,7 @@
 let express = require('express');
 let router = express.Router();
 let teamCtrl = require('../controllers/TeamController');
-let verifyToken = require('./VerifyToken');
+let verifyToken = require('../Auth/VerifyToken');
 
 router.get('/', verifyToken, teamCtrl.getAll); // administrators
 

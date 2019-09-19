@@ -39,7 +39,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-var AuthController = require('./auth/AuthController');
+ /*AuthController = require('./auth/AuthController');
 app.use('./auth', AuthController);
-
+*/
 module.exports = app;

@@ -10,7 +10,7 @@ module.exports = {
       },
       name: {
         allowNull: false,
-        default: 'Team_'+id,
+        default: 'Team_'+this.id,
         unique: true,
         type: Sequelize.STRING,
       },

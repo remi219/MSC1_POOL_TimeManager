@@ -1,3 +1,4 @@
+/*
 let express = require('express');
 let router = express.Router();
 let bodyParser = require('body-parser');
@@ -53,3 +54,4 @@ router.get('/logout', function(req, res) {
 });
 
 module.exports = router;
+*/
