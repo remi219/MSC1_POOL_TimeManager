@@ -19,7 +19,7 @@ module.exports = {
         if (typeof bearerHeader !== 'undefined') {
             req.token = bearerHeader.split(' ')[1];
             next();
-        } else {
+        } else
             res.json({
                 status: 403,
                 message: "Access denied"
