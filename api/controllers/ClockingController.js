@@ -14,5 +14,17 @@ module.exports = {
             time: req.body.clocking.time
         }).then(clock => res.status(200).send('Clock successfully created! '+clock))
             .catch(error => res.status(500).send(error));
+    },
+    updateClock: function (req, res) {
+        models.Clocking.update({
+            status: req.body.clocking.status,
+            time: req.body.clocking.time
+        }).then(clock => res.status(200).send('Clock successfully updated! '+clock))
+            .catch(error => res.status(500).send(error));
+    },
+    deleteClock: function (req, res) {
+        models.Clocking.destroy({ where: { id_user: req.params.id }})
+            .then(clock => res.status(200).send('Clock successfully deleted! '+clock))
+            .catch(error => res.status(500).send(error));
     }
 };
