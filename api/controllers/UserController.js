@@ -1,18 +1,20 @@
 let express = require('express');
 let jwt = require('jsonwebtoken');
+var bcrypt = require('bcryptjs');
 let models = require('../models/index');
 const secretkey = 'mysecretkey';
 
 module.exports = {
-    login:function(req, res) {
+    login: function(req, res) {
+        const hashedPassword = bcrypt.hashSync(req.body.user.password, 8);
         const user = req.body.user;
-        jwt.sign({user : user}, secretkey, { expiresIn: '1h'}, (error, token) => {
+        jwt.sign({user : user}, secretkey, { expiresIn: '2h'}, (error, token) => {
             res.json({
                 token: token
             });
         });
     },
-    verifyToken: function(req, res, next) {
+    /*verifyToken: function(req, res, next) {
         const bearerHeader = req.headers['authorization'];
         if (typeof bearerHeader !== 'undefined') {
             req.token = bearerHeader.split(' ')[1];
@@ -23,7 +25,7 @@ module.exports = {
                 message: "Access denied"
             })
         }
-    },
+    },*/
     getUsers: function(req, res) {
         if (Object.keys((req.query)).length !== 0) {
             const email = req.query.email;

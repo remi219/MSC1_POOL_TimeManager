@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER
     },
-    id_user: DataTypes.INTEGER
+    name: DataTypes.STRING,
   }, {});
   Team.associate = function(models) {
     models.Team.belongsTo(models.User, { foreignKey: 'id_user' })
