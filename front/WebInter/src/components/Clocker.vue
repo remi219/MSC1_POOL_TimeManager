@@ -1,42 +1,38 @@
 <template>
   <div class="page-container">
     <md-app md-waterfall md-mode="fixed-last">
-      <md-app-toolbar class="md-large md-dense md-primary" style="background-color: #4682B4">
-        <div class="md-toolbar-row">
-          <div class="md-toolbar-section-start">
-            <span class="md-title">Time Manager</span>
-          </div>
-          <md-card-media>
-            <img src="../assets/logogc.png" alt="Avatar">
-          </md-card-media>
-        </div>
-
-        <div class="md-toolbar-row">
-          <md-tabs class="md-transparent" >
-            <md-tab  id="tab-home" md-label="Profile"  to='Users'></md-tab>
-            <md-tab id="tab-pages" md-label="WorkingTime" to='WorkingTime'></md-tab>
-            <md-tab id="tab-posts" md-label="ClockManager" to='ClockManager'></md-tab>
-            <md-tab id="tab-favorites" md-label="WorkingTimes" to='WorkingTimes'></md-tab>
-            <md-tab id="tab-other" md-label="ChartManager" to='ChartManager'></md-tab>
-          </md-tabs>
-        </div>
-      </md-app-toolbar>
       <md-app-content>
         <div id="clock">
-           <h3> {{ new Date() | moment('Do MMMM YYYY - h:mm a')}} </h3>
+           <h3> Date:  {{ new Date() | moment('Do MMMM YYYY') }} </h3>
            <br>
            <br>
+          <h3>  Time: {{ new Date() | moment('hh:mm:ss a') }} </h3>
            <br>
-          <v-row justify="space-around" align="center">
-            <v-col style="width: 480px; flex: 0 1 auto;">
-              <v-time-picker v-model="start" :max="end" color="#269FB4" ></v-time-picker>
-            </v-col>
-            <v-btn rounded color="#269FB4">Clock in</v-btn>
-            <v-col style="width:480px; flex: 0 1 auto;">
-              <v-time-picker v-model="end" :min="start" color="#269FB4" ></v-time-picker>
-            </v-col>
-            <v-btn rounded color="#269FB4">Clock out</v-btn>
-          </v-row>
+          <md-card-actions>
+            <md-button class="md-raised md-primary"
+                       style="margin: auto"
+                       v-on:click="$store.commit('changeClockIn')"
+                       :disabled="$store.state.disClockIn">Clock In
+            </md-button>
+            <md-button class="md-raised md-primary"
+                       style="margin: auto"
+                       v-on:click="$store.commit('changeClockOut')"
+                       :disabled="$store.state.disClockOut">Clock Out
+            </md-button>
+          </md-card-actions>
+          <br>
+          <div class="md-layout md-alignment-center">
+            <md-card-content v-if="$store.state.clockIn">
+                   <h1> Clock In:
+                    <br>
+                     Time : {{new Date() | moment('hh:mm:ss a')}} </h1>
+            </md-card-content>
+          <md-card-content v-if="$store.state.clockOut">
+              <h1> Clock Out:
+                <br>
+                    Time : {{new Date() | moment('hh:mm:ss a')}} </h1>
+          </md-card-content>
+          </div>
         </div>
       </md-app-content>
     </md-app>
@@ -47,7 +43,6 @@
 
 export default {
   name: 'ClockManager',
-  component: 'Connection',
   data() {
     return {
       start: null,
@@ -56,18 +51,18 @@ export default {
     };
   },
 };
+
 </script>
 
 <style>
-  h3{ font-size: 20pt; }
+  h3{ font-size:25pt; }
+  h1{  font-size: 15pt;
+       font-style: italic;
+  }
 
   #clock {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
     color: #2c3e50;
-    margin-top: 150px;
+    margin-top: 100px;
     margin-left: 50px;
   }
 

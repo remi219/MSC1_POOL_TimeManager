@@ -2,40 +2,21 @@
   <!-- eslint-disable -->
   <div class="page-container">
     <md-app md-waterfall md-mode="fixed-last">
-      <md-app-toolbar class="md-large md-dense md-primary" style="background-color: #4682B4">
-        <div class="md-toolbar-row">
-          <div class="md-toolbar-section-start">
-            <span class="md-title">Time Manager</span>
-          </div>
-          <md-card-media>
-            <img src="../assets/logogc.png" alt="Avatar">
-          </md-card-media>
-        </div>
-
-        <div class="md-toolbar-row">
-          <md-tabs class="md-transparent" >
-            <md-tab  id="tab-home" md-label="Profile"  to='Users'></md-tab>
-            <md-tab id="tab-pages" md-label="WorkingTime" to='WorkingTime'></md-tab>
-            <md-tab id="tab-posts" md-label="ClockManager" to='ClockManager'></md-tab>
-            <md-tab id="tab-favorites" md-label="WorkingTimes" to='WorkingTimes'></md-tab>
-            <md-tab id="tab-other" md-label="ChartManager" to='ChartManager'></md-tab>
-          </md-tabs>
-        </div>
-      </md-app-toolbar>
 
       <md-app-content>
+        <div class="md-layout md-alignment-center">
         <div class="md-layout md-alignment-right">
         <div id="table">
         <md-table md-card>
           <md-table-toolbar>
-            <h1 class="md-title">Working Times</h1>
+            <h1 class="md-title">Working Times: {{ months }}</h1>
           </md-table-toolbar>
 
           <md-table-row>
             <md-table-head md-date>Date</md-table-head>
-            <md-table-head>Start Hour</md-table-head>
-            <md-table-head>End Hour</md-table-head>
-            <md-table-head>Type</md-table-head>
+            <md-table-head>Clock In</md-table-head>
+            <md-table-head>Clock Out</md-table-head>
+            <md-table-head>Day/Night</md-table-head>
             <md-table-head>Job</md-table-head>
           </md-table-row>
 
@@ -66,18 +47,48 @@
           <br>
           <div class="md-layout-item md-size-60 md-small-size-100 md-alignment-center">
             <md-field>
-              <label for="month">Month</label>
-              <md-select v-model="month" name="month" id="month">
-                <md-option value="mai">Mai</md-option>
-                <md-option value="june">June</md-option>
-                <md-option value="july">July</md-option>
-                <md-option value="august">August</md-option>
-                <md-option value="september">September</md-option>
+              <md-select v-model="months" name="months" id="months" placeholder="Month">
+                <md-option v-for="item in items"
+                           v-bind:key="items"
+                           :value="item">{{item}}</md-option>
               </md-select>
             </md-field>
           </div>
         </div>
         </div>
+        <div class="md-layout md-alignment-center">
+          <md-card-header>
+            <h2>Informations: </h2>
+          </md-card-header>
+          <md-list>
+            <md-list-item>
+              <md-icon><img src="../assets/icon/clock.png"/></md-icon>
+              <span class="md-list-item-text">Hours in week:  {{ hours }} hrs</span>
+            </md-list-item>
+
+            <md-list-item>
+              <md-icon><img src="../assets/icon/work.png"/></md-icon>
+              <span class="md-list-item-text">Nights in a row:  {{ nightrow }} </span>
+            </md-list-item>
+
+            <md-list-item>
+              <md-icon><img src="../assets/icon/last.png"/></md-icon>
+              <span class="md-list-item-text">Last night of work:  {{ lastnight }} </span>
+            </md-list-item>
+
+            <md-list-item>
+              <md-icon><img src="../assets/icon/day.png"/></md-icon>
+              <span class="md-list-item-text">Days: {{ days }} </span>
+            </md-list-item>
+
+            <md-list-item>
+              <md-icon><img src="../assets/icon/night.png"/></md-icon>
+              <span class="md-list-item-text">Nights: {{ night }} </span>
+            </md-list-item>
+
+          </md-list>
+        </div>
+      </div>
       </md-app-content>
     </md-app>
   </div>
@@ -89,18 +100,39 @@ export default {
   component: 'Login',
   data() {
     return {
+      months: '',
+      night: 4,
+      nightrow: 2,
+      days: 2,
+      hours: 33,
+      lastnight: '7-Sept-2019',
+
       form: {
         username: null,
         fistname: null,
         lastname: null,
         email: null,
       },
+
+      items: [
+        'Septembre',
+        'August',
+        'July',
+        'June',
+        'Mai',
+        'April',
+      ],
     };
   },
 };
 </script>
 
 <style>
+  h2{ font-style: italic;
+      color: brown;
+      font-size: 16pt;
+  }
+
   #table {
     margin-top: 150px;
   }

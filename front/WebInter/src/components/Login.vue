@@ -2,16 +2,6 @@
   <!-- eslint-disable -->
   <div class="page-container">
     <md-app md-waterfall md-mode="fixed-last">
-      <md-app-toolbar class="md-large md-dense md-primary" style="background-color: #4682B4">
-        <div class="md-toolbar-row">
-          <div class="md-toolbar-section-start">
-            <span class="md-title">Time Manager</span>
-          </div>
-          <md-card-media>
-            <img src="../assets/logogc.png" alt="Avatar">
-          </md-card-media>
-        </div>
-      </md-app-toolbar>
 
       <md-app-content>
         <div id="from">
@@ -24,12 +14,12 @@
               <md-card-content>
                 <div class="md-layout-item">
                   <md-field>
-                    <label for="username">Username</label>
-                    <md-input name="username" id="username" autocomplete="given-name" v-model="form.username"/>
-                  </md-field>
-                  <md-field>
                     <label for="email">Email</label>
                     <md-input type="email" name="email" id="email" autocomplete="email" v-model="form.email"/>
+                  </md-field>
+                  <md-field>
+                    <label>Password</label>
+                    <md-input v-model="form.password" type="password"></md-input>
                   </md-field>
                 </div>
               </md-card-content>
@@ -38,7 +28,7 @@
                   <router-link style="color: #FFFF;" :to="{ path: 'Users'}">Login</router-link>
                 </md-button>
                 <md-button class="md-raised md-primary" style="margin: auto">
-                  <router-link style="color: #FFFF;" :to="{ path: 'Login' }">Sign Up</router-link>
+                  <router-link style="color: #FFFF;" :to="{ path: 'Signup' }">Sign Up</router-link>
                 </md-button>
               </md-card-actions>
             </md-card>
@@ -51,12 +41,9 @@
 
 
 <script>
-/* import WorkingTimes from './WorkingTimes'; */
 
 export default {
-  /* eslint-disable */
   name: 'Login',
-  component: 'WorkingTimes',
   user: 'bruce',
   data() {
     return {

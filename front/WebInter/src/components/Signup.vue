@@ -3,17 +3,6 @@
 
   <div class="page-container">
     <md-app md-waterfall md-mode="fixed-last">
-      <md-app-toolbar class="md-large md-dense md-primary" style="background-color: #4682B4">
-        <div class="md-toolbar-row">
-          <div class="md-toolbar-section-start">
-            <span class="md-title">Time Manager</span>
-          </div>
-          <md-card-media>
-            <img src="../assets/logogc.png" alt="Avatar">
-          </md-card-media>
-        </div>
-
-      </md-app-toolbar>
 
       <md-app-content>
         <div id="from">
@@ -27,15 +16,8 @@
               <md-card-content>
                 <div class="md-layout-item">
                   <md-avatar class="md-large">
-                    <img src="../assets/avatar-2.jpg" alt="People">
+                    <img src="../assets/avatar/avatar-1.jpg" alt="People">
                   </md-avatar>
-                  <md-field>
-                    <label for="username">Username</label>
-                    <md-input name="username"
-                              id="username"
-                              autocomplete="given-name"
-                              v-model="form.username"/>
-                  </md-field>
                   <md-field>
                     <label for="firstname">Fisrt Name</label>
                     <md-input name="firstname"
@@ -57,6 +39,12 @@
                               id="email"
                               autocomplete="email"
                               v-model="form.email"/>
+                  </md-field>
+                  <md-field>
+                    <label>Password</label>
+                    <md-input v-model="form.password"
+                              type="password"/>
+
                   </md-field>
                 </div>
               </md-card-content>
@@ -86,14 +74,13 @@ export default {
   name: 'Login',
   component: 'Connection',
 
-  user: 'bruce',
   data() {
     return {
       form: {
-        username: null,
         fistname: null,
         lastname: null,
         email: null,
+        password:null,
       },
     };
   },

@@ -2,10 +2,14 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Users from '../components/Users';
 import WorkingTimes from '../components/WorkingTimes';
-import WorkingTime from '../components/WorkingTime';
+import Calendar from '../components/Calendar';
 import Signup from '../components/Signup';
 import Login from '../components/Login';
 import Clocker from '../components/Clocker';
+import Logout from '../components/Logout';
+import Settings from '../components/Settings';
+import ChartManager from '../components/ChartManager';
+import EditProfile from '../components/EditProfile';
 
 
 Vue.use(Router);
@@ -13,7 +17,7 @@ Vue.use(Router);
 export default new Router({
   routes: [
     {
-      path: '/login',
+      path: '/',
       name: 'Login',
       component: Login,
     },
@@ -23,7 +27,12 @@ export default new Router({
       component: Signup,
     },
     {
-      path: '/users',
+      path: '/logout',
+      name: 'Logout',
+      component: Logout,
+    },
+    {
+      path: '/Users',
       name: 'Users',
       component: Users,
     },
@@ -33,14 +42,29 @@ export default new Router({
       component: WorkingTimes,
     },
     {
-      path: '/workingtime',
-      name: 'WorkingTime',
-      component: WorkingTime,
+      path: '/calendar',
+      name: 'Calendar',
+      component: Calendar,
     },
     {
       path: '/clocker',
       name: 'Clocker',
       component: Clocker,
+    },
+    {
+      path: '/settings',
+      name: 'Settings',
+      component: Settings,
+    },
+    {
+      path: '/chartmanager',
+      name: 'ChartManager',
+      component: ChartManager,
+    },
+    {
+      path: '/editprofile',
+      name: 'EditProfile',
+      component: EditProfile,
     },
 
   ],

@@ -14,6 +14,7 @@ import 'vue-cal/dist/vuecal.css';
 import ClockPlugin from 'vue-reactive-clock';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
+import VueMorris from 'vue-morris';
 import App from './App';
 import router from './router';
 
@@ -28,13 +29,50 @@ Vue.use(Vuetify);
 Vue.use(moment);
 Vue.use(ClockPlugin);
 Vue.use(axios);
+Vue.use(VueMorris);
 Vue.use(VueAxios);
+
+const store = new Vuex.Store({
+  state: {
+    startTime: false,
+    endTime: false,
+    timeClockIn: null,
+    timeClockOut: null,
+    disClockIn: false,
+    disClockOut: true,
+    clockIn: false,
+    clockOut: false,
+
+  },
+  mutations: {
+    changeClockIn(state) {
+      if (state.startTime == false) {
+        state.startTime = true;
+        state.clockIn = true;
+        state.disClockIn = true;
+        state.disClockOut = false;
+        state.endTime = false;
+      }
+    },
+    changeClockOut(state) {
+      if (state.endTime == false) {
+        state.endTime = true;
+        state.clockOut = true;
+        state.startTime = false;
+        state.disClockOut = true;
+        state.disClockIn = false;
+      }
+    },
+
+  },
+});
 
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App, VueCal },
   template: '<App/>',
 });
