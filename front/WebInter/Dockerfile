@@ -1,6 +1,10 @@
 FROM node:11-alpine
 
-RUN npm install -g http-server
+RUN apk add --update git && \
+  rm -rf /tmp/* /var/cache/apk/*
+
+RUN npm install -g http-server && \
+    npm install vue-morris --save
 
 WORKDIR /app
 
