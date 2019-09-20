@@ -1,17 +1,32 @@
 let express = require('express');
-let jwt = require('jsonwebtoken');
-var bcrypt = require('bcryptjs');
+/*let jwt = require('jsonwebtoken');
+var bcrypt = require('bcryptjs');*/
 let models = require('../models/index');
 const secretkey = 'mysecretkey';
 
 module.exports = {
     login: function(req, res) {
-        const hashedPassword = bcrypt.hashSync(req.body.user.password, 8);
+        /*const hashedPassword = bcrypt.hashSync(req.body.user.password, 8);
         const user = req.body.user;
         jwt.sign({user : user}, secretkey, { expiresIn: '2h'}, (error, token) => {
             res.json({
                 token: token
             });
+        });*/
+
+        // Mock route to test link front-api:
+        const email = req.body.email;
+        const password = req.body.password;
+        models.User.findOne({ where: { email: email, password: password },
+        }).then(user => {
+            if (user !== undefined) {
+                res.status(200).json({
+                    status: 200,
+                    message: 'Welcome '+user.firstname,
+                });
+            } else {
+                res.status(404).send('User not found');
+            }
         });
     },
     getUsers: function(req, res) {
@@ -36,7 +51,7 @@ module.exports = {
                 res.json({ status: 403, message: "Forbidden" });
             } else {*/
                 models.User.create(req.body.user)
-                    .then(user => res.status(200).json({ message: 'User successfully created! ', authData: authData }))
+                    .then(user => res.status(200).json({ message: 'User successfully created! ', authData: /*authData*/ user }))
                     .catch(error => res.status(500).send(error));
             /*}
         });*/
