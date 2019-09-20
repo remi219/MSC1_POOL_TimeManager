@@ -21,10 +21,18 @@ module.exports = {
             .catch(error => res.status(500).send(error));
     },
     deleteTeam: function (req, res) {
-
+        models.Team.destroy({
+            where: { id: req.params.id }
+        }).then(id => {
+            if (id === req.params.id) {
+                res.status(200).send('Team successfully deleted! ');
+            } else {
+                res.status(200).send('No team found with this id ');
+            }
+        });
     },
     joinTeam: function (req, res) {
-
+        
     },
     leaveTeam: function (req, res) {
 
