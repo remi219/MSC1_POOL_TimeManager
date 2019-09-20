@@ -3,9 +3,7 @@ let router = express.Router();
 let teammemberCtrl = require('../controllers/TeamMemberController');
 let verifyToken = require('../Auth/VerifyToken');
 
-router.get('/', verifyToken, teammemberCtrl.getAll); // administrators
-
-router.get('/:id', verifyToken, teammemberCtrl.getById); // all
+router.get('/', verifyToken, teammemberCtrl.getAllByTeamId); // administrators
 
 router.get('/:id', verifyToken, teammemberCtrl.getAllByUserId);
 
