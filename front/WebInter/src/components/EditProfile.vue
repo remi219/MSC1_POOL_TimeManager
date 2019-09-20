@@ -1,8 +1,9 @@
 <template>
   <div class="page-container">
     <md-app md-waterfall md-mode="fixed-last">
-
       <md-app-content>
+
+        <!-- form for editing profile -->
         <div id="from">
           <div class="md-layout md-alignment-center">
             <md-card class="md-layout-item md-size-30 md-small-size-100"
@@ -13,9 +14,10 @@
 
               <md-card-content>
                 <div class="md-layout-item">
-                  <md-avatar class="md-large">
-                    <img src="../assets/avatar/avatar-2.jpg" alt="People">
-                  </md-avatar>
+                  <md-field>
+                    <label>Only images</label>
+                    <md-file v-model="single" accept="image/*" />
+                  </md-field>
                   <md-field>
                     <label for="firstname">Fisrt Name</label>
                     <md-input name="firstname"
@@ -47,15 +49,19 @@
                 </div>
               </md-card-content>
               <md-card-actions>
-                <md-button class="md-raised md-primary" style="margin: auto">
+                <md-button class="md-icon-button"
+                           style="margin: auto">
                   <router-link
                     style="color: #FFFF;"
-                    :to="{ path: 'Users'}">Cancel</router-link>
+                    :to="{ path: 'UserEmployee'}"><img src="../assets/icon/cancel.png"/>
+                  </router-link>
                 </md-button>
-                <md-button class="md-raised md-primary" style="margin: auto">
+                <md-button class="md-icon-button"
+                           style="margin: auto">
                   <router-link
                     style="color: #FFFF;"
-                    :to="{ path: 'Users'}">Save</router-link>
+                    :to="{ path: 'UserEmployee'}"><img src="../assets/icon/save.png"/>
+                  </router-link>
                 </md-button>
               </md-card-actions>
             </md-card>
@@ -72,9 +78,9 @@
     data() {
       return {
         form: {
-          firstname: 'Bruce',
-          lastname: 'Wayne',
-          email: 'bwayne@gotham.com',
+          firstname: '',
+          lastname: '',
+          email: '',
           password: '12345',
         },
       };

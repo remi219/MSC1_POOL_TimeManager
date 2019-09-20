@@ -2,7 +2,7 @@
   <!-- eslint-disable -->
   <div class="page-container">
     <md-app md-waterfall md-mode="fixed-last">
-
+        
     </md-app>
   </div>
 </template>
@@ -11,11 +11,10 @@
 
 export default {
   name: 'Calendar',
-  data: () => ({
+  data() {
+    return {
 
-  }),
-  methods: {
-
+    };
   },
 };
 </script>

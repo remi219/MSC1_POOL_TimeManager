@@ -44,6 +44,12 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       poll: config.dev.poll,
     }
   },
+  resolve: {
+    alias: {
+      'vue$': 'vue/dist/vue.common.js',
+      'jquery': 'jquery/src/jquery.js'
+    }
+  },
   plugins: [
     new webpack.DefinePlugin({
       'process.env': require('../config/dev.env')

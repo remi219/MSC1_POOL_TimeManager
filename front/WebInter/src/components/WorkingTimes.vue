@@ -2,12 +2,14 @@
   <!-- eslint-disable -->
   <div class="page-container">
     <md-app md-waterfall md-mode="fixed-last">
-
       <md-app-content>
+
+        <!-- Table which give informations about days/nights of work in select month -->
         <div class="md-layout md-alignment-center">
         <div class="md-layout md-alignment-right">
         <div id="table">
         <md-table md-card>
+
           <md-table-toolbar>
             <h1 class="md-title">Working Times: {{ months }}</h1>
           </md-table-toolbar>
@@ -45,6 +47,8 @@
           </md-table-row>
         </md-table>
           <br>
+
+          <!-- Select the month you want -->
           <div class="md-layout-item md-size-60 md-small-size-100 md-alignment-center">
             <md-field>
               <md-select v-model="months" name="months" id="months" placeholder="Month">
@@ -56,6 +60,8 @@
           </div>
         </div>
         </div>
+
+          <!-- Informations about your work in current months (days and nights and hours of works) -->
         <div class="md-layout md-alignment-center">
           <md-card-header>
             <h2>Informations: </h2>
@@ -129,7 +135,6 @@ export default {
 
 <style>
   h2{ font-style: italic;
-      color: brown;
       font-size: 16pt;
   }
 

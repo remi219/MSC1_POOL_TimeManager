@@ -3,6 +3,8 @@
     <md-app md-waterfall md-mode="fixed-last">
       <md-app-content>
         <div class="md-layout-item md-alignment-center">
+
+          <!-- Graph donuts - give days and nights wof works -->
         <div id="donutgraph" >
           <h1>Donut Chart</h1>
           <br>
@@ -21,6 +23,8 @@
         <br>
           <br>
           <br>
+
+          <!-- Graph bar give days and nights of works by months -->
         <div id="bargraph" class="md-layout-item md-size-50 md-small-size-100 md-alignment-center "  >
           <h1>Barre Chart</h1>
           <br>
@@ -48,6 +52,8 @@
             <h1> Line Chart</h1>
             <br>
             <br>
+
+          <!-- Graph line -->
             <line-chart
               id="line"
               :data='[

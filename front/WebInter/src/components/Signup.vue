@@ -3,14 +3,15 @@
 
   <div class="page-container">
     <md-app md-waterfall md-mode="fixed-last">
-
       <md-app-content>
+
+        <!-- form for sign up -->
         <div id="from">
           <div class="md-layout md-alignment-center">
             <md-card class="md-layout-item md-size-30 md-small-size-100"
                      style="background-color: #e9ecef">
               <md-card-header>
-                <h1>Connection</h1>
+                <h1>Sign up</h1>
               </md-card-header>
 
               <md-card-content>
@@ -47,19 +48,25 @@
 
                   </md-field>
                 </div>
+
               </md-card-content>
               <md-card-actions>
-                <md-button class="md-raised md-primary" style="margin: auto">
+                <md-button class="md-icon-button"
+                           style="margin: auto">
                   <router-link
                     style="color: #FFFF;"
-                    :to="{ path: '/'}">Cancel</router-link>
+                    :to="{ path: '/'}"><img src="../assets/icon/cancel.png"/>
+                  </router-link>
                 </md-button>
-                <md-button class="md-raised md-primary" style="margin: auto">
+                <md-button class="md-icon-button"
+                           style="margin: auto">
                   <router-link
                     style="color: #FFFF;"
-                    :to="{ path: 'Users'}">Done</router-link>
+                    :to="{ path: '/UserEmployee'}"><img src="../assets/icon/save.png"/>
+                  </router-link>
                 </md-button>
               </md-card-actions>
+
             </md-card>
           </div>
         </div>

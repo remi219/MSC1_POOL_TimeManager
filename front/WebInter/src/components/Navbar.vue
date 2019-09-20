@@ -23,7 +23,7 @@ export default {
         {
           id: 0,
           label: 'Home',
-          page: '/Users',
+          page: '/UserEmployee',
         },
         {
           id: 1,
@@ -44,6 +44,16 @@ export default {
           id: 4,
           label: 'Graph',
           page: '/ChartManager',
+        },
+        {
+          id: 5,
+          label: 'Manager',
+          page: '/UserManager',
+        },
+        {
+          id: 6,
+          label: 'Admin',
+          page: '/UserAdministrator',
         },
       ],
     };

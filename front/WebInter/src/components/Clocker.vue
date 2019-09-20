@@ -2,6 +2,8 @@
   <div class="page-container">
     <md-app md-waterfall md-mode="fixed-last">
       <md-app-content>
+
+        <!-- Clock which give date and hours -->
         <div id="clock">
            <h3> Date:  {{ new Date() | moment('Do MMMM YYYY') }} </h3>
            <br>
@@ -9,11 +11,13 @@
           <h3>  Time: {{ new Date() | moment('hh:mm:ss a') }} </h3>
            <br>
           <md-card-actions>
+            <!-- Clock in when arrived -->
             <md-button class="md-raised md-primary"
                        style="margin: auto"
                        v-on:click="$store.commit('changeClockIn')"
                        :disabled="$store.state.disClockIn">Clock In
             </md-button>
+            <!-- Clock out when leave -->
             <md-button class="md-raised md-primary"
                        style="margin: auto"
                        v-on:click="$store.commit('changeClockOut')"
@@ -22,7 +26,7 @@
           </md-card-actions>
           <br>
           <div class="md-layout md-alignment-center">
-            <md-card-content v-if="$store.state.clockIn">
+         <!--   <md-card-content v-if="$store.state.clockIn">
                    <h1> Clock In:
                     <br>
                      Time : {{new Date() | moment('hh:mm:ss a')}} </h1>
@@ -31,7 +35,7 @@
               <h1> Clock Out:
                 <br>
                     Time : {{new Date() | moment('hh:mm:ss a')}} </h1>
-          </md-card-content>
+          </md-card-content> -->
           </div>
         </div>
       </md-app-content>
