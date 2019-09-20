@@ -5,7 +5,8 @@ WORKDIR /usr/src/app
 COPY . .
 
 RUN npm install && \
-	npm install -g sequelize sequelize-cli mysql2 jsonwebtoken
+	npm install --g sequelize sequelize-cli mysql2 && \
+	npm install --save jsonwebtoken bcryptjs
 
 EXPOSE 3000
 
