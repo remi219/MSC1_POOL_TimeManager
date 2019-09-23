@@ -26,5 +26,8 @@ module.exports = {
         models.Clocking.destroy({ where: { id_user: req.params.id }})
             .then(clock => res.status(200).send('Clock successfully deleted! '+clock))
             .catch(error => res.status(500).send(error));
+    },
+    deleteByUserId: function(id_user) {
+        models.Clocking.destroy({ where: { id_user: id_user }});
     }
 };

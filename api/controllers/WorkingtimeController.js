@@ -53,5 +53,8 @@ module.exports = {
         models.Workingtime.destroy({ where: { id: req.params.id }})
             .then(wt => res.status(200).send('Workingtime successfully deleted! '+wt))
             .catch(error => res.status(500).send(error));
+    },
+    deleteByUserId: function(id_user) {
+        models.Workingtime.destroy({ where: { id_user: id_user }});
     }
 };
