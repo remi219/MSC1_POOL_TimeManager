@@ -3,12 +3,12 @@ let router = express.Router();
 let teammemberCtrl = require('../controllers/TeamMemberController');
 let verifyToken = require('../Auth/VerifyToken');
 
-router.get('/', verifyToken, teammemberCtrl.getAllByTeamId); // administrators
+router.get('/', verifyToken, teammemberCtrl.getAllByTeamId);
 
 router.get('/:id', verifyToken, teammemberCtrl.getAllByUserId);
 
-router.post('/', verifyToken, teammemberCtrl.joinTeam); // all
+router.post('/', verifyToken, teammemberCtrl.addUserToTeam());
 
-router.delete('/:id', verifyToken, teammemberCtrl.leaveTeam); // all
+router.delete('/:id', verifyToken, teammemberCtrl.removeUserFromTeam());
 
 module.exports = router;
