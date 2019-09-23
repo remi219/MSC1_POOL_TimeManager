@@ -3,6 +3,23 @@ let router = express.Router();
 let userCtrl = require('../controllers/UserController');
 //let verifyToken = require('../Auth/VerifyToken');
 
+/*
+
+router.get('/', verifyToken, userCtrl.getUsers);
+
+router.get('/:id', verifyToken, userCtrl.getUserById);
+
+router.post('/login', verifyToken, userCtrl.login);
+
+router.post('/', verifyToken, userCtrl.createUser);
+
+router.post('/signup', userCtrl.signup);
+
+router.put('/:id', verifyToken, userCtrl.updateUser);
+
+router.delete('/:id', verifyToken, userCtrl.deleteUser);
+*/
+
 router.post('/login', userCtrl.login);
 
 router.get('/', userCtrl.getUsers);

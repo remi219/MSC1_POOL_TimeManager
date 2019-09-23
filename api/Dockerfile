@@ -6,7 +6,7 @@ COPY . .
 
 RUN npm install && \
 	npm install --g sequelize sequelize-cli mysql2 && \
-	npm install --save jsonwebtoken bcryptjs
+	npm install --save jsonwebtoken csurf bcryptjs
 
 EXPOSE 3000
 
