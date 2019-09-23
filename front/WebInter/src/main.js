@@ -76,22 +76,81 @@ const store = new Vuex.Store({
         state.disClockIn = false;
       }
     },
-    loginUser(state, user) {
-
+    loginUser(state, email, password) {
+      const URL = 'http://localhost:3000/:email+password';
+      console.log(URL);
+      axios.get(URL)
+        .then((response) => {
+          state.infoHistory = response.data.user;
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+          state.error = true;
+        })
+        .finally(() => state.error);
     },
+
     checkRole(state) {
-
+      const URL = 'http://localhost:3000/:role';
+      console.log(URL);
+      axios.get(URL)
+        .then((response) => {
+          state.infoHistory = response.data.user.role;
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+          state.error = true;
+        })
+        .finally(() => state.error);
     },
 
 
-    searchUser(state) {
+    searchUser(state, id) {
       state.searchuser = true;
       state.empolyee = true;
       state.disCreate = true;
+      const URL = 'http://localhost:3000/:id';
+      console.log(URL);
+      axios.get(URL)
+        .then((response) => {
+          state.infoHistory = response.data.user.id;
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+          state.error = true;
+        })
+        .finally(() => state.error);
     },
     createUser(state) {
       state.createuser = true;
       state.disSearch = true;
+      const URL = 'http://localhost:3000/:id';
+      console.log(URL);
+      axios.post(URL, {
+        id: this.id
+      })
+        .then(response => {
+        })
+        .catch(e => {
+          this.errors.push(e);
+        });
+    },
+    editUser(state, id) {
+      state.createuser = true;
+      state.disSearch = true;
+      const URL = 'http://localhost:3000/:id';
+      console.log(URL);
+      axios.post(URL, {
+        id: this.id
+      })
+        .then(response => {
+        })
+        .catch(e => {
+          this.errors.push(e);
+        });
     },
     refershUser(state) {
       state.searchuser = null;

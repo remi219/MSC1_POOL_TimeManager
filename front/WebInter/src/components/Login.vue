@@ -23,11 +23,11 @@
                               name="email"
                               id="email"
                               autocomplete="email"
-                              v-model="form.email"/>
+                              v-model="email"/>
                   </md-field>
                   <md-field>
                     <label>Password</label>
-                    <md-input v-model="form.password"
+                    <md-input v-model="password"
                               type="password"></md-input>
                   </md-field>
                 </div>
@@ -36,9 +36,9 @@
               <md-card-actions>
                 <md-button class="md-icon-button"
                            style="margin: auto"
-                           v-on:click="$store.commit('loginUser', user)">
+                           v-on:click="$store.commit('loginUser', email, password)">
                   <router-link style="color: #FFFF;"
-                               :to="{ path: 'UserEmployee'}"><img src="../assets/icon/login.png"/>
+                               :to="{ path: 'UserEmployee/:id', params: {email, password}}"><img src="../assets/icon/login.png"/>
                   </router-link>
                 </md-button>
                 <md-button class="md-icon-button"
@@ -65,10 +65,8 @@ export default {
   user: '',
   data() {
     return {
-      form: {
-        username: null,
+        password: null,
         email: null,
-      },
     };
   },
 };

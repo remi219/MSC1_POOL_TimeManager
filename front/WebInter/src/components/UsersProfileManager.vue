@@ -26,11 +26,11 @@
               <md-card-actions>
                 <md-button class="md-raised md-primary"
                            style="margin: auto"
-                           v-on:click="$store.commit('searchUser')"
+                           v-on:click="$store.commit('searchUser', id)"
                            :disabled="$store.state.disSearch">Search</md-button>
                 <md-button class="md-raised md-primary"
                            style="margin: auto"
-                           v-on:click="$store.commit('createUser')"
+                           v-on:click="$store.commit('createUser',)"
                            :disabled="$store.state.disCreate">Create</md-button>
               </md-card-actions>
               <br>
@@ -155,9 +155,9 @@
                 <md-card-actions>
                   <md-button class="md-icon-button"
                              style="margin: auto"
-                             v-on:click="">
+                             v-on:click="$store.commit('refershUser', id)">
                     <router-link style="color: #FFFF;"
-                                 :to="{ path: '' }"><img src="../assets/icon/edit-2.png"/>
+                                 :to="{ path: '/userEmployee/:id' params: {id }"><img src="../assets/icon/edit-2.png"/>
                     </router-link>
                   </md-button>
                 </md-card-actions>
