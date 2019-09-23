@@ -10,6 +10,7 @@ import Logout from '../components/Logout';
 import Settings from '../components/Settings';
 import ChartManager from '../components/ChartManager';
 import EditProfile from '../components/EditProfile';
+import Home from '../components/Home';
 
 
 Vue.use(Router);
@@ -30,6 +31,11 @@ export default new Router({
       path: '/logout',
       name: 'Logout',
       component: Logout,
+    },
+    {
+      path: '/home',
+      name: 'Home',
+      component: Home,
     },
     {
       path: '/Users',
