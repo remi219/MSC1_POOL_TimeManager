@@ -3,6 +3,9 @@ let jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
 let models = require('../models/index');
 const secretkey = 'mysecretkey';
+let clockCtrl = require('../controllers/ClockingController');
+let wtCtrl = require('../controllers/WorkingtimeController');
+let teammemberCtrl = require('../controllers/TeamMemberController');
 
 module.exports = {
     getUsers: function(req, res) {
@@ -54,7 +57,7 @@ module.exports = {
             } else {
                 models.User.update({ user: req.body.user }, { where: { id: req.params.id } })
                     .then(res.status(200).json({ message:'User successfully updated! ', authData: authData }))
-                    .catch(error => res.status(500).json(error))
+                    .catch(error => res.status(500).json(error));
             }
         });
     },
@@ -63,9 +66,13 @@ module.exports = {
             models.User.destroy({ where: { id: req.params.id }})
                 .then(user => {
                     if (user === req.params.id) {
-                        res.status(200).send('User successfully deleted! '+user)
+                        const id_user = req.params.id;
+                        clockCtrl.deleteByUserId(id_user);
+                        wtCtrl.deleteByUserId((id_user))
+                        teammemberCtrl.deleteByUserId(id_user);
+                        res.status(200).send('User successfully deleted! '+id_user);
                     } else {
-                        res.status(200).send('No user found with this id '+user)
+                        res.status(200).send('No user found with this id '+id_user);
                     }
                 })
                 .catch(error => res.status(500).send(error));

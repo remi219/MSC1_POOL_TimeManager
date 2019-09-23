@@ -23,7 +23,7 @@ module.exports = {
     deleteTeam: function (req, res) {
         // first find and delete all TeamMembers where id_team = id_team
         const id_team = req.params.id;
-        teammemberCtrl.deleteByIds(id_team);
+        teammemberCtrl.deleteByTeamId(id_team);
         models.Team.destroy({
             where: { id: id_team }
         }).then(id => {

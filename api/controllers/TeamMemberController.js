@@ -28,7 +28,10 @@ module.exports = {
             .then(res.status(200).send('User successfully deleted!'))
             .catch(error => res.status(500).send(error));
     },
-    deleteById: function (id) {
-        models.TeamMember.destroy({ where: {id: id } });
+    deleteByTeamId: function (id_team) {
+        models.TeamMember.destroy({ where: {id_team: id_team } });
+    },
+    deleteByUserId: function (id_user) {
+        models.TeamMember.destroy({ where: {id_user: id_user } });
     }
 };
