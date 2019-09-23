@@ -59,7 +59,7 @@ const store = new Vuex.Store({
   },
   mutations: {
     changeClockIn(state) {
-      if (state.startTime == false) {
+      if (state.startTime === false) {
         state.startTime = true;
         state.clockIn = true;
         state.disClockIn = true;
@@ -68,7 +68,7 @@ const store = new Vuex.Store({
       }
     },
     changeClockOut(state) {
-      if (state.endTime == false) {
+      if (state.endTime === false) {
         state.endTime = true;
         state.clockOut = true;
         state.startTime = false;
