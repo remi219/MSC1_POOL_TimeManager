@@ -16,17 +16,18 @@ module.exports = {
                 token: token
             });
         });*/
-
         // Mock route to test link front-api:
-        const email = req.body.email;
-        const password = req.body.password;
-        models.User.findOne({ where: { email: email, password: password },
+        console.log(">>>> req.query = ", req.query);
+        const email = req.query.email;
+        const password = req.query.password;
+        models.User.findOne({
+            where: {
+                email: email,
+                password: password
+            }
         }).then(user => {
             if (user !== undefined) {
-                res.status(200).json({
-                    status: 200,
-                    message: 'Welcome '+user.firstname,
-                });
+                res.status(200).send(user);
             } else {
                 res.status(404).send('User not found');
             }
@@ -63,15 +64,16 @@ module.exports = {
             if (error) {
                 res.json({ status: 401, message: "Unauthorized" });
             } else {*/
-                models.User.create(req.body.user)
-                    .then(res.status(200).json({ message: 'User successfully created! '/*, authData: authData */}))
-                    .catch(error => res.status(500).send(error));
-            /*}
-        });*/
+        console.log(">>>>>>>> req.body = ", req.body);
+        models.User.create(req.body)
+            .then(user => res.send(user))
+            .catch(error => res.status(500).send(error));
+        /*}
+    });*/
     },
     signup: function(req, res) {
         models.User.create(req.body.user)
-            .then(user => res.status(200).json({ message: 'User successfully created! ', user: user }))
+            .then(user => res.status(200).send(user))
             .catch(error => res.status(500).send(error));
     },
     updateUser: function(req, res) {
@@ -79,25 +81,21 @@ module.exports = {
             if (error) {
                 res.status(401).json({ status: 401, message: "Unauthorized" });
             } else {*/
-                models.User.update({ user: req.body.user }, { where: { id: req.params.id } })
-                    .then(res.status(200).json({ message:'User successfully updated! ', authData: authData }))
-                    .catch(error => res.status(500).json(error));
-            /*}
-        });*/
+        models.User.update({ user: req.body.user }, { where: { id: req.params.id } })
+            .then(res.status(200).json({ message:'User successfully updated!' /*, authData: authData*/ }))
+            .catch(error => res.status(500).json(error));
+        /*}
+    });*/
     },
     deleteUser: function (req, res) {
         const id_user = req.params.id;
         if (id_user !== '1') {
             models.User.destroy({ where: { id: id_user }})
                 .then(user => {
-                    if (user === req.params.id) {
-                        clockCtrl.deleteByUserId(id_user);
-                        wtCtrl.deleteByUserId((id_user));
-                        teammemberCtrl.deleteByUserId(id_user);
-                        res.status(200).send('User successfully deleted! '+id_user);
-                    } else {
-                        res.status(200).send('No user found with this id '+id_user);
-                    }
+                    clockCtrl.deleteByUserId(id_user);
+                    wtCtrl.deleteByUserId((id_user));
+                    teammemberCtrl.deleteByUserId(id_user);
+                    res.status(200).send('User successfully deleted! '+id_user);
                 })
                 .catch(error => res.status(500).send(error));
         } else {

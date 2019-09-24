@@ -4,7 +4,6 @@
   <div class="page-container">
     <md-app md-waterfall md-mode="fixed-last">
       <md-app-content>
-
         <!-- form for sign up -->
         <div id="from">
           <div class="md-layout md-alignment-center">
@@ -13,7 +12,6 @@
               <md-card-header>
                 <h1>Sign up</h1>
               </md-card-header>
-
               <md-card-content>
                 <div class="md-layout-item">
                   <md-avatar class="md-large">
@@ -45,28 +43,15 @@
                     <label>Password</label>
                     <md-input v-model="form.password"
                               type="password"/>
-
                   </md-field>
                 </div>
-
               </md-card-content>
               <md-card-actions>
-                <md-button class="md-icon-button"
-                           style="margin: auto">
-                  <router-link
-                    style="color: #FFFF;"
-                    :to="{ path: '/'}"><img src="../assets/icon/cancel.png"/>
-                  </router-link>
-                </md-button>
-                <md-button class="md-icon-button"
-                           style="margin: auto">
-                  <router-link
-                    style="color: #FFFF;"
-                    :to="{ path: '/UserEmployee'}"><img src="../assets/icon/save.png"/>
-                  </router-link>
-                </md-button>
+                <div class="form_buttons_area">
+                  <button class="form_button" @click="doCancel"><img src="../assets/icon/cancel.png" class="form_button_image" />CANCEL</button>
+                  <button class="form_button" @click="doSignup"><img src="../assets/icon/save.png" class="form_button_image" />SIGNUP</button>
+                </div>
               </md-card-actions>
-
             </md-card>
           </div>
         </div>
@@ -76,26 +61,63 @@
 </template>
 
 <script>
+    import UsersService from '../services/UsersService';
+    import router from '../router'
 
-export default {
-  name: 'Login',
-  component: 'Connection',
-
-  data() {
-    return {
-      form: {
-        fistname: null,
-        lastname: null,
-        email: null,
-        password:null,
-      },
+    export default {
+        name: 'Signup',
+        data() {
+            return {
+                form: {
+                    fistname: null,
+                    lastname: null,
+                    email: null,
+                    password: null,
+                    role: 3
+                },
+                user: null
+            };
+        },
+        methods: {
+            doCancel() {
+                router.push("/login");
+            },
+            doSignup() {
+                console.log(">>>> form = ", this.form);
+                UsersService.createUser(this.form).then(response => {
+                    console.log(">>>>>> response = ", response);
+                    if (response.status === 200) {
+                        this.user = response.data;
+                        // remplir local storage avec les infos du users
+                        router.push("/home");
+                    } else {
+                        console.log("Fail to create account : ", response);
+                    }
+                });
+            }
+        }
     };
-  },
-};
 </script>
 
 <style>
   #from {
-    margin-top: 150px;
+  }
+  .form_button_image {
+    width: 35px!important;
+    height: 35px!important;
+  }
+  .form_button {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    border: 1px solid blue;
+    border-radius: 5px;
+    background-color: #00B7FF;
+    color: azure!important;
+    margin: 20px;
+  }
+  .form_buttons_area {
+    display: inline-block;
   }
 </style>

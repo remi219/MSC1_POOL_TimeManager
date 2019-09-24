@@ -1,11 +1,33 @@
 import axios from 'axios'
 
-const URL = 'http://localhost:3001/Users';
+const urlBase = 'http://localhost:3001/Users';
 
 export default {
   getAllUsers: function() {
-    return axios.get(URL).then(response => {
-      console.log(">>>>> response = ", response);
-    }).catch(error => console.log(">>>>> error = ", error));
+    return axios.get(urlBase).catch(error => console.log(">>>>> error : ", error));
+  },
+  createUser: function (form) {
+    let data = {
+      user: {
+        firstname: form.firstname,
+        lastname: form.lastname,
+        email: form.email,
+        password: form.password,
+        id_role: form.role
+      }
+    };
+    data = data.user;
+    return axios.post(urlBase, data).catch(error => console.log(">>>>> error : ", error));
+  },
+  findUser: function (form) {
+    let data = {
+      params: {
+        email: form.email,
+        password: form.password
+      }
+    };
+    console.log(">>>>> data = ", data);
+    const url = urlBase+'/login';
+    return axios.get(url, data).catch(error => console.log(">>>> error : ", error));
   }
 }
