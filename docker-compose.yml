@@ -5,6 +5,7 @@ services:
       context: ./front/WebInter
     ports:
       - "8080:8080"
+
   api:
     build:
       context: ./api
@@ -14,6 +15,9 @@ services:
       - "3001:3000"
     depends_on:
       - "bdd"
+    volumes:
+      - ./api:/usr/src/app/
+
   bdd:
     image: mysql:5.7
     environment:
