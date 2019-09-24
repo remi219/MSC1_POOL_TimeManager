@@ -18,18 +18,14 @@
                     <img src="../assets/avatar/avatar-1.jpg" alt="People">
                   </md-avatar>
                   <md-field>
-                    <label for="firstname">Fisrt Name</label>
-                    <md-input name="firstname"
-                              id="firstname"
-                              autocomplete="given-name"
-                              v-model="form.firstname"/>
+                    <label>Fisrt Name</label>
+                    <md-input autocomplete="given-name"
+                              v-model="form.firstname" />
                   </md-field>
                   <md-field>
-                    <label for="lastname">Last Name</label>
-                    <md-input name="lastname"
-                              id="lastname"
-                              autocomplete="given-name"
-                              v-model="form.lastname"/>
+                    <label>Last Name</label>
+                    <md-input autocomplete="given-name"
+                              v-model="form.lastname" />
                   </md-field>
                   <md-field>
                     <label for="email">Email</label>
@@ -37,21 +33,24 @@
                               name="email"
                               id="email"
                               autocomplete="email"
-                              v-model="form.email"/>
+                              v-model="form.email" />
                   </md-field>
                   <md-field>
                     <label>Password</label>
                     <md-input v-model="form.password"
-                              type="password"/>
+                              type="password" />
+                  </md-field>
+                  <md-field>
+                    <label>Role</label>
+                    <md-input v-model="form.role"
+                              type="number" />
                   </md-field>
                 </div>
               </md-card-content>
-              <md-card-actions>
                 <div class="form_buttons_area">
                   <button class="form_button" @click="doCancel"><img src="../assets/icon/cancel.png" class="form_button_image" />CANCEL</button>
                   <button class="form_button" @click="doSignup"><img src="../assets/icon/save.png" class="form_button_image" />SIGNUP</button>
                 </div>
-              </md-card-actions>
             </md-card>
           </div>
         </div>

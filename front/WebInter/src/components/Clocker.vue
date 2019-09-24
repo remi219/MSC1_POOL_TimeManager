@@ -2,42 +2,24 @@
   <div class="page-container">
     <md-app md-waterfall md-mode="fixed-last">
       <md-app-content>
-
-        <!-- Clock which give date and hours -->
+        <!--<h3 class="current_date"> Date:  {{ new Date() | moment('Do MMMM YYYY') }} </h3>
+        <h3 class="current_time">  Time: {{ new Date() | moment('hh:mm:ss a') }} </h3>-->
         <div id="clock">
-           <h3> Date:  {{ new Date() | moment('Do MMMM YYYY') }} </h3>
-           <br>
-           <br>
-          <h3>  Time: {{ new Date() | moment('hh:mm:ss a') }} </h3>
-           <br>
-          <md-card-actions>
-            <!-- Clock in when arrived -->
-            <md-button class="md-raised md-primary"
-                       style="margin: auto"
-                       v-on:click="$store.commit('changeClockIn')"
-                       :disabled="$store.state.disClockIn">Clock In
-            </md-button>
-            <!-- Clock out when leave -->
-            <md-button class="md-raised md-primary"
-                       style="margin: auto"
-                       v-on:click="$store.commit('changeClockOut')"
-                       :disabled="$store.state.disClockOut">Clock Out
-            </md-button>
-          </md-card-actions>
-          <br>
-          <div class="md-layout md-alignment-center">
-         <!--   <md-card-content v-if="$store.state.clockIn">
-                   <h1> Clock In:
-                    <br>
-                     Time : {{new Date() | moment('hh:mm:ss a')}} </h1>
-            </md-card-content>
-          <md-card-content v-if="$store.state.clockOut">
-              <h1> Clock Out:
-                <br>
-                    Time : {{new Date() | moment('hh:mm:ss a')}} </h1>
-          </md-card-content> -->
+          <div class="date">{{ currentDateTime | moment('MMMM Do, YYYY') }}</div>
+          <div class="time">{{ currentDateTime | moment('hh:mm:ss a') }}</div>
+        </div>
+
+        <div class="form_buttons_area">
+          <div v-if="this.clockIsRunning">
+            <div class="time">{{ currentActiveTime | moment('H:mm:ss') }}</div>
+            <button class="button_clockout" @click="doClockout">CLOCK OUT</button>
+          </div>
+          <div v-else>
+            <div>-</div>
+            <button class="button_clockin" @click="doClockin">CLOCK IN</button>
           </div>
         </div>
+
       </md-app-content>
     </md-app>
   </div>
@@ -45,29 +27,61 @@
 
 <script>
 
-export default {
-  name: 'ClockManager',
-  data() {
-    return {
-      start: null,
-      end: null,
-      date: null,
+    export default {
+        name: 'ClockManager',
+        data: function () {
+            return {
+                clockIsRunning: false,
+                currentDateTime: Date.now(),
+                currentActiveTime: new Date().setHours(0, 0, 0, 0)
+            };
+        },
+        created() {
+            setInterval(() => {
+                this.currentDateTime = Date.now();
+            }, 1);
+        },
+        methods: {
+            doClockin() {
+                this.clockIsRunning = true;
+                setInterval(() => {
+                    this.currentActiveTime.setSeconds(this.currentActiveTime.getSeconds() + 1);
+                }, 1);
+            },
+            doClockout() {
+                this.clockIsRunning = false;
+                this.currentActiveTime.setHours(0, 0, 0, 0)
+            }
+        }
     };
-  },
-};
 
 </script>
 
 <style>
-  h3{ font-size:25pt; }
-  h1{  font-size: 15pt;
-       font-style: italic;
+  .date {
+    font-size: 28px;
+    font-weight: bold;
+  }
+  .time {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .button_clockin {
+    padding: 10px 30px;
+    border: 1px solid darkgreen;
+    border-radius: 10px;
+    background-color: forestgreen;
+    color: azure!important;
+    margin: 20px;
+  }
+  .button_clockout {
+    padding: 10px 30px;
+    border: 1px solid darkred;
+    border-radius: 5px;
+    background-color: firebrick;
+    color: azure!important;
+    margin: 20px;
   }
 
-  #clock {
-    color: #2c3e50;
-    margin-top: 100px;
-    margin-left: 50px;
-  }
 
 </style>
