@@ -26,7 +26,7 @@
 </template>
 
 <script>
-  import clockerService from '../services/ClockerService';
+    import clockerService from '../services/ClockerService';
 
     export default {
         name: 'ClockManager',
@@ -38,6 +38,7 @@
             };
         },
         created() {
+            this.currentActiveTime = this.getUserActiveTime();
             setInterval(() => {
                 this.currentDateTime = Date.now();
             }, 1);
@@ -48,17 +49,22 @@
                 setInterval(() => {
                     this.currentActiveTime.setSeconds(this.currentActiveTime.getSeconds() + 1);
                 }, 1);
-                let clock = {
+                let clockData = {
                     status: this.clockIsRunning,
-                    time: this.currentActiveTime
+                    time: this.currentActiveTime,
+                    user: localStorage.user.id
                 };
-                clockerService.updateClock(clock).then(response => {
+                clockerService.updateClock(clockData).then(response => {
                     console.log(">>>> response = ", response);
                 });
             },
             doClockout() {
                 this.clockIsRunning = false;
-                this.currentActiveTime.setHours(0, 0, 0, 0)
+                let timeElapsedSinceLastClockin = '';
+                this.currentActiveTime.add();
+            },
+            getUserActiveTime() {
+                return new Date("00:00:00");
             }
         }
     };
