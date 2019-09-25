@@ -88,8 +88,11 @@
                 UsersService.createUser(this.form).then(response => {
                     if (response.status === 200 && response.data !== "") {
                         this.user = response.data;
-                        this.persist();
-                        router.push("/home");
+                        alert("Account created, you 'll now be redirected to login page");
+                        setTimeout(() => {
+                            localStorage.clear();
+                            router.push('/login');
+                        }, 500);
                     } else {
                         console.log("Fail to create account : ", response);
                         alert("Fail to create account. Please verify your data or try again later.");

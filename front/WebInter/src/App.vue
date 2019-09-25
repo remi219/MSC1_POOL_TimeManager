@@ -16,12 +16,16 @@
         components: { Navbar, Footer },
         data() {
             return {
-                user: null
+                user: null,
+                clockIsRunning: false
             };
         },
         mounted() {
             if (localStorage.user) {
                 this.user = JSON.parse(localStorage.user);
+            }
+            if (localStorage.clockIsRunning) {
+                this.clockIsRunning = localStorage.clockIsRunning;
             }
         }
     };

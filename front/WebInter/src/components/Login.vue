@@ -43,6 +43,7 @@
 
 <script>
     import UsersService from '../services/UsersService';
+    import clockerService from '../services/ClockerService';
     import router from '../router'
 
     export default {
@@ -67,6 +68,14 @@
                     if (response.status === 200 && response.data !== "") {
                         this.user = response.data;
                         this.persist();
+                        try {
+                            const user_id = JSON.parse(localStorage.user).id;
+                            clockerService.createClock(user_id).then(response => {
+                                console.log(response);
+                            }).catch(e => console.log(">>>> error : ", e));
+                        } catch (e) {
+                            console.log(">>>> error : ", e);
+                        }
                         router.push("/home");
                     } else {
                         console.log("Fail to login : ", response);
