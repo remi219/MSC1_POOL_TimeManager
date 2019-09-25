@@ -5,7 +5,7 @@
       <div class="tm_title">Time Manager</div>
       <div class="links">
         <router-link class="items"
-                     v-for="link in links"
+                     v-for="link in finalLinks"
                      v-bind:key="link.id"
                      :to="`${link.page}`"
                      style="color: whitesmoke">{{ link.label }}</router-link>
@@ -49,6 +49,11 @@
                 ];
             } else {
                 this.links = []
+            }
+        },
+        computed: {
+            finalLinks: function () {
+                return this.links;
             }
         }
     };
