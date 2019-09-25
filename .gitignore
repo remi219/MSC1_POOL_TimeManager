@@ -6,5 +6,7 @@
 .DS_store
 .vs*
 ./*/.vs*
-
-
+./*/node_modules
+./api/node_modules
+./front/WebInter/node_modules
+node_modules
