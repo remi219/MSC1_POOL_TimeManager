@@ -1,26 +1,25 @@
 <template>
   <footer>
-    <p>Copyright 2018 {{ title }}</p>
+    <div class="message">{{ copyrightMessage }}</div>
   </footer>
 </template>
 
 <script>
-  export default {
-    name: "footer",
-    props: {
-      title: {
-        type: String,
-        required: true
-      }
-    },
-    data() {
-      return {
-
-      }
+    export default {
+        name: "footer",
+        data() {
+            return {
+                copyrightMessage: ""
+            }
+        },
+        created() {
+            this.copyrightMessage = "Copyright Team_21 - 2019";
+        }
     }
-  }
 </script>
 
 <style scoped>
-
+  .message {
+    font-size: 16px;
+  }
 </style>
