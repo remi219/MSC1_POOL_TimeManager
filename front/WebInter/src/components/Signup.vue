@@ -78,19 +78,21 @@
             };
         },
         methods: {
+            persist() {
+                localStorage.user = JSON.stringify(this.user);
+            },
             doCancel() {
                 router.push("/login");
             },
             doSignup() {
-                console.log(">>>> form = ", this.form);
                 UsersService.createUser(this.form).then(response => {
-                    console.log(">>>>>> response = ", response);
-                    if (response.status === 200) {
+                    if (response.status === 200 && response.data !== "") {
                         this.user = response.data;
-                        // remplir local storage avec les infos du users
+                        this.persist();
                         router.push("/home");
                     } else {
                         console.log("Fail to create account : ", response);
+                        alert("Fail to create account. Please verify your data or try again later.");
                     }
                 });
             }

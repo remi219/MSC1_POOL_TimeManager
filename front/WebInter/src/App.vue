@@ -7,23 +7,33 @@
 </template>
 
 <script>
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
+    import Navbar from './components/Navbar';
+    import Footer from './components/Footer';
 
-export default {
-  name: 'App',
-  footer_authors: 'Team_21',
-  components: { Navbar, Footer },
-};
+    export default {
+        name: 'App',
+        footer_authors: 'Team_21',
+        components: { Navbar, Footer },
+        data() {
+            return {
+                user: null
+            };
+        },
+        mounted() {
+            if (localStorage.user) {
+                this.user = JSON.parse(localStorage.user);
+            }
+        }
+    };
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: auto;
-}
+  #app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    margin-top: auto;
+  }
 </style>

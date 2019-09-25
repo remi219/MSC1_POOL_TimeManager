@@ -57,22 +57,27 @@
             };
         },
         methods: {
+            persist() {
+                console.log(">>>>> user = %o", this.user);
+                localStorage.user = JSON.stringify(this.user);
+            },
             doLogin() {
-                console.log(">>>> form = ", this.form);
                 UsersService.findUser(this.form).then(response => {
-                    console.log(">>>>> response = ", response);
-                    if (response.status === 200) {
+                    console.log(">>>> login response = ", response);
+                    if (response.status === 200 && response.data !== "") {
                         this.user = response.data;
-                        // remplir local storage avec les infos du users
+                        this.persist();
                         router.push("/home");
                     } else {
-                        console.log("Fail to create account : ", response);
+                        console.log("Fail to login : ", response);
+                        alert("No corresponding user found. Please verify your data or create an account");
                     }
                 });
             },
             doSignup() {
                 router.push("/signup");
-            }
+            },
+
         }
     };
 </script>
