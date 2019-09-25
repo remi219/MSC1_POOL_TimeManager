@@ -26,6 +26,7 @@
 </template>
 
 <script>
+  import clockerService from '../services/ClockerService';
 
     export default {
         name: 'ClockManager',
@@ -47,6 +48,13 @@
                 setInterval(() => {
                     this.currentActiveTime.setSeconds(this.currentActiveTime.getSeconds() + 1);
                 }, 1);
+                let clock = {
+                    status: this.clockIsRunning,
+                    time: this.currentActiveTime
+                };
+                clockerService.updateClock(clock).then(response => {
+                    console.log(">>>> response = ", response);
+                });
             },
             doClockout() {
                 this.clockIsRunning = false;
@@ -63,7 +71,7 @@
     font-weight: bold;
   }
   .time {
-    font-size: 20px;
+    font-size: 24px;
     font-weight: bold;
   }
   .button_clockin {
