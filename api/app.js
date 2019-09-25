@@ -1,13 +1,15 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+let createError = require('http-errors');
+let express = require('express');
+let path = require('path');
+let cookieParser = require('cookie-parser');
+let logger = require('morgan');
+let cors = require('cors');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var workingtimesRouter = require('./routes/workingtimes');
-var app = express();
+let indexRouter = require('./routes/index');
+let usersRouter = require('./routes/users');
+let workingtimesRouter = require('./routes/workingtimes');
+let clockerRouter = require('./routes/clockings');
+let app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -18,9 +20,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/clocker', clockerRouter);
 app.use('/workingtimes', workingtimesRouter);
 
 // catch 404 and forward to error handler

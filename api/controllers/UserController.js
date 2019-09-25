@@ -46,7 +46,14 @@ module.exports = {
         }
     },
     getUserById: function(req, res) {
-        models.User.findOne({ where: { id: req.params.id },
+        models.User.findOne({
+            where: { id: req.params.id }
+        }).then(user => res.json(user));
+    },
+    getUserByEmail: function(req, res) {
+        console.log(">>>>> getUserByEmail: ", req.body.email);
+        models.User.findOne({
+            where: { email: req.body.email }
         }).then(user => res.json(user));
     },
     /*login: function(req, res) {
@@ -66,7 +73,7 @@ module.exports = {
             } else {*/
         console.log(">>>>>>>> req.body = ", req.body);
         models.User.create(req.body)
-            .then(user => res.send(user))
+            .then(user => { res.json(user); })
             .catch(error => res.status(500).send(error));
         /*}
     });*/
@@ -90,14 +97,13 @@ module.exports = {
     deleteUser: function (req, res) {
         const id_user = req.params.id;
         if (id_user !== '1') {
-            models.User.destroy({ where: { id: id_user }})
-                .then(user => {
-                    clockCtrl.deleteByUserId(id_user);
-                    wtCtrl.deleteByUserId((id_user));
-                    teammemberCtrl.deleteByUserId(id_user);
+            clockCtrl.deleteByUserId(id_user);
+            wtCtrl.deleteByUserId((id_user));
+            teammemberCtrl.deleteByUserId(id_user);
+            models.User.destroy({ where: { id: id_user }
+            }).then(user => {
                     res.status(200).send('User successfully deleted! '+id_user);
-                })
-                .catch(error => res.status(500).send(error));
+                }).catch(error => res.status(500).send(error));
         } else {
             res.status(403).send('Admin user #1 cannot be deleted');
         }

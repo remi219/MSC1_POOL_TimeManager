@@ -3,24 +3,26 @@ let models = require('../models/index');
 
 module.exports = {
     getByUserId: function (req, res) {
+        console.log(">>>>> GetByUserId req.params.id = ", req.params.id);
         models.Clocking.findOne({
-            where: { id: req.params.id },
+            where: { id_user: req.params.id },
         }).then(clock => res.json(clock));
     },
     createClock: function (req, res) {
-        models.Clocking.create({
-            id_user: req.params.id_user,
-            status: req.body.clocking.status,
-            time: req.body.clocking.time
-        }).then(clock => res.status(200).send('Clock successfully created! '+clock))
-            .catch(error => res.status(500).send(error));
+        console.log(">>>> createClock - req.body.clocker = ", req.body.clocker);
+        models.Clocking.create(req.body.clocker)
+            .then(clock => res.status(200).json(clock))
+            .catch(error => res.status(500).json(error));
     },
     updateClock: function (req, res) {
+        console.log(">>>> updateClock - req.body = ", req.body);
         models.Clocking.update({
-            status: req.body.clocking.status,
-            time: req.body.clocking.time
-        }).then(clock => res.status(200).send('Clock successfully updated! '+clock))
-            .catch(error => res.status(500).send(error));
+                status: req.body.clocker.status,
+                time: req.body.clocker.time
+            }, {
+                where: { id_user: req.body.clocker.id_user }
+            }).then(clock => res.status(200).json(clock))
+            .catch(error => res.status(500).json(error));
     },
     deleteClock: function (req, res) {
         models.Clocking.destroy({ where: { id_user: req.params.id }})
@@ -28,6 +30,8 @@ module.exports = {
             .catch(error => res.status(500).send(error));
     },
     deleteByUserId: function(id_user) {
-        models.Clocking.destroy({ where: { id_user: id_user }});
+        models.Clocking.destroy({
+            where: { id_user: id_user }
+        }).catch(error => console.log(error));
     }
 };

@@ -2,30 +2,32 @@
   <div class="page-container">
     <md-app md-waterfall md-mode="fixed-last">
       <md-app-content>
-        <!--<h3 class="current_date"> Date:  {{ new Date() | moment('Do MMMM YYYY') }} </h3>
-        <h3 class="current_time">  Time: {{ new Date() | moment('hh:mm:ss a') }} </h3>-->
         <div id="clock">
           <div class="date">{{ currentDateTime | moment('MMMM Do, YYYY') }}</div>
           <div class="time">{{ currentDateTime | moment('hh:mm:ss a') }}</div>
+          <div>{{ onDutyMsg }}</div>
         </div>
-
         <div class="form_buttons_area">
           <div v-if="this.clockIsRunning">
-            <div class="time">{{ currentActiveTime | moment('H:mm:ss') }}</div>
             <button class="button_clockout" @click="doClockout">CLOCK OUT</button>
           </div>
           <div v-else>
-            <div>-</div>
             <button class="button_clockin" @click="doClockin">CLOCK IN</button>
           </div>
         </div>
-
       </md-app-content>
     </md-app>
   </div>
 </template>
 
 <script>
+  /* TODO :
+  la creation marche
+  pb sur le delete (à cause du ondelete cascade
+  re test
+      creer un user
+      check ...
+  */
     import clockerService from '../services/ClockerService';
 
     export default {
@@ -34,37 +36,71 @@
             return {
                 clockIsRunning: false,
                 currentDateTime: Date.now(),
-                currentActiveTime: new Date().setHours(0, 0, 0, 0)
+                currentActiveTime: Date.now(),
+                timeOnStart: Date.now(),
+                timeOnStop: Date.now(),
+                onDutyMsg: "-"
             };
         },
         created() {
-            this.currentActiveTime = this.getUserActiveTime();
+            this.getUserActiveTime();
+            if (localStorage.clockIsRunning) {
+                this.clockIsRunning = localStorage.clockIsRunning;
+            }
             setInterval(() => {
                 this.currentDateTime = Date.now();
             }, 1);
         },
         methods: {
+            persist() {
+                console.log(">>>>> persist - clockIsRunning = ", this.clockIsRunning);
+                localStorage.clockIsRunning = this.clockIsRunning;
+            },
             doClockin() {
-                this.clockIsRunning = true;
-                setInterval(() => {
-                    this.currentActiveTime.setSeconds(this.currentActiveTime.getSeconds() + 1);
-                }, 1);
                 let clockData = {
-                    status: this.clockIsRunning,
-                    time: this.currentActiveTime,
-                    user: localStorage.user.id
+                    status: true,
+                    time: Date.now(),
+                    user_id: JSON.parse(localStorage.user).id
+                };
+                clockerService.updateClock(clockData).then(response => {
+                    console.log(">>>> updateClock - response = ", response);
+                    if (response.status === 200 && response.data !== "") {
+                        this.clockIsRunning = true;
+                        this.persist();
+                        this.timeOnStart = Date.now();
+                        this.onDutyMsg = "Your working time is recording..."
+                    } else {
+                        alert("Unable to clock you in");
+                    }
+                }).catch(error => console.log(">>>> clocckin error : ", error));
+            },
+            doClockout() {
+                this.currentActiveTime = Date.now();
+                let clockData = {
+                    status: false,
+                    time: Date.now(),
+                    user_id: JSON.parse(localStorage.user).id
                 };
                 clockerService.updateClock(clockData).then(response => {
                     console.log(">>>> response = ", response);
-                });
-            },
-            doClockout() {
-                this.clockIsRunning = false;
-                let timeElapsedSinceLastClockin = '';
-                this.currentActiveTime.add();
+                    this.clockIsRunning = false;
+                    this.persist();
+                    this.timeOnStop = Date.now();
+                    this.onDutyMsg = "Last clock event: "+this.timeOnStop;
+                }).catch(error => console.log("clockout error : ", error));
             },
             getUserActiveTime() {
-                return new Date("00:00:00");
+                console.log(">>>> localStorage.user = ", localStorage.user);
+                clockerService.getClock(JSON.parse(localStorage.user).id).then(response => {
+                    let userActiveTime = Date.now();
+                    if (response.status === 200 && response.data !== "") {
+                        console.log("getUserActiveTime - response = ", response);
+                         userActiveTime = response.data.time;
+                    }
+                    this.currentActiveTime = userActiveTime;
+                    console.log(">>>> this.currentActiveTime = ", this.currentActiveTime);
+                    this.onDutyMsg = "Last clock event: "+userActiveTime;
+                }).catch(error => this.onDutyMsg = error);
             }
         }
     };
@@ -75,10 +111,12 @@
   .date {
     font-size: 28px;
     font-weight: bold;
+    padding: 10px;
   }
   .time {
     font-size: 24px;
     font-weight: bold;
+    padding: 10px;
   }
   .button_clockin {
     padding: 10px 30px;
