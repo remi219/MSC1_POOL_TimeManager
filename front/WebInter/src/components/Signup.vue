@@ -60,47 +60,47 @@
 </template>
 
 <script>
-    import UsersService from '../services/UsersService';
-    import router from '../router'
+import UsersService from '../services/UsersService';
+import router from '../router';
 
-    export default {
-        name: 'Signup',
-        data() {
-            return {
-                form: {
-                    fistname: null,
-                    lastname: null,
-                    email: null,
-                    password: null,
-                    role: 3
-                },
-                user: null
-            };
-        },
-        methods: {
-            persist() {
-                localStorage.user = JSON.stringify(this.user);
-            },
-            doCancel() {
-                router.push("/login");
-            },
-            doSignup() {
-                UsersService.createUser(this.form).then(response => {
-                    if (response.status === 200 && response.data !== "") {
-                        this.user = response.data;
-                        alert("Account created, you 'll now be redirected to login page");
-                        setTimeout(() => {
-                            localStorage.clear();
-                            router.push('/login');
-                        }, 500);
-                    } else {
-                        console.log("Fail to create account : ", response);
-                        alert("Fail to create account. Please verify your data or try again later.");
-                    }
-                });
-            }
-        }
+export default {
+  name: 'Signup',
+  data() {
+    return {
+      form: {
+        fistname: null,
+        lastname: null,
+        email: null,
+        password: null,
+        role: 3,
+      },
+      user: null,
     };
+  },
+  methods: {
+    persist() {
+      localStorage.user = JSON.stringify(this.user);
+    },
+    doCancel() {
+      router.push('/login');
+    },
+    doSignup() {
+      UsersService.createUser(this.form).then((response) => {
+        if (response.status === 200 && response.data !== '') {
+          this.user = response.data;
+          alert("Account created, you 'll now be redirected to login page");
+          setTimeout(() => {
+            localStorage.clear();
+            router.push('/login');
+          }, 500);
+        } else {
+          console.log('Fail to create account : ', response);
+          alert('Fail to create account. Please verify your data or try again later.');
+        }
+      });
+    },
+  },
+};
 </script>
 
 <style>

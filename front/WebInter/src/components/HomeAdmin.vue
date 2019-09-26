@@ -7,8 +7,9 @@
         <div id="profil">
 
          <!-- Profile of administrator -->
-          <div class="md-layout md-alignment-left">
-            <md-card class="md-layout-item md-size-30 md-small-size-100" style="background-color: #e9ecef">
+          <div class="md-layout md-alignment-center">
+            <md-card class="md-layout-item md-size-30 md-small-size-100"
+                     style="background-color: #e9ecef">
               <md-card-header>
                 <h2>{{ role }}</h2>
               </md-card-header>
@@ -103,7 +104,7 @@ import { DonutChart, BarChart, LineChart } from 'vue-morris';
 global.Raphael = Raphael;
 
 export default {
-  name: 'UserAdministrator',
+  name: 'HomeAdmin',
   components: { DonutChart, BarChart, LineChart },
 
   data() {

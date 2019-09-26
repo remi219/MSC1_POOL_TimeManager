@@ -21,82 +21,83 @@
 </template>
 
 <script>
-    import clockerService from '../services/ClockerService';
+import clockerService from '../services/ClockerService';
 
-    export default {
-        name: 'ClockManager',
-        data: function () {
-            return {
-                clockIsRunning: false,
-                currentDateTime: Date.now(),
-                currentActiveTime: Date.now(),
-                timeOnStart: Date.now(),
-                timeOnStop: Date.now(),
-                onDutyMsg: "-"
-            };
-        },
-        created() {
-            this.getUserActiveTime();
-            if (localStorage.clockIsRunning) {
-                this.clockIsRunning = localStorage.clockIsRunning;
-            }
-            setInterval(() => {
-                this.currentDateTime = Date.now();
-            }, 1);
-        },
-        methods: {
-            persist() {
-                console.log(">>>>> persist - clockIsRunning = ", this.clockIsRunning);
-                localStorage.clockIsRunning = this.clockIsRunning;
-            },
-            doClockin() {
-                let clockData = {
-                    status: true,
-                    time: Date.now(),
-                    user_id: JSON.parse(localStorage.user).id
-                };
-                clockerService.updateClock(clockData).then(response => {
-                    console.log(">>>> updateClock - response = ", response);
-                    if (response.status === 200 && response.data !== "") {
-                        this.clockIsRunning = true;
-                        this.persist();
-                        this.timeOnStart = Date.now();
-                        this.onDutyMsg = "Your working time is recording..."
-                    } else {
-                        alert("Unable to clock you in");
-                    }
-                }).catch(error => console.log(">>>> clocckin error : ", error));
-            },
-            doClockout() {
-                this.currentActiveTime = Date.now();
-                let clockData = {
-                    status: false,
-                    time: Date.now(),
-                    user_id: JSON.parse(localStorage.user).id
-                };
-                clockerService.updateClock(clockData).then(response => {
-                    console.log(">>>> response = ", response);
-                    this.clockIsRunning = false;
-                    this.persist();
-                    this.timeOnStop = Date.now();
-                    this.onDutyMsg = "Last clock event: "+this.timeOnStop;
-                }).catch(error => console.log("clockout error : ", error));
-            },
-            getUserActiveTime() {
-                console.log(">>>> localStorage.user = ", localStorage.user);
-                clockerService.getClock(JSON.parse(localStorage.user).id).then(response => {
-                    let userActiveTime = Date.now();
-                    if (response.status === 200 && response.data !== "") {
-                        console.log("getUserActiveTime - response = ", response);
-                         userActiveTime = response.data.time;
-                    }
-                    this.currentActiveTime = userActiveTime;
-                    console.log(">>>> this.currentActiveTime = ", this.currentActiveTime);
-                    this.onDutyMsg = "Last clock event: "+userActiveTime;
-                }).catch(error => this.onDutyMsg = error);
-            }
-        }
+export default {
+  name: 'ClockManager',
+  data() {
+    return {
+      clockIsRunning: false,
+      currentDateTime: Date.now(),
+      currentActiveTime: Date.now(),
+      timeOnStart: Date.now(),
+      timeOnStop: Date.now(),
+      onDutyMsg: '-',
     };
+  },
+  created() {
+    this.getUserActiveTime();
+    if (localStorage.clockIsRunning) {
+      this.clockIsRunning = localStorage.clockIsRunning;
+    }
+    setInterval(() => {
+      this.currentDateTime = Date.now();
+    }, 1);
+  },
+  methods: {
+    persist() {
+      console.log('>>>>> persist - clockIsRunning = ', this.clockIsRunning);
+      localStorage.clockIsRunning = this.clockIsRunning;
+    },
+    doClockin() {
+      const clockData = {
+        status: true,
+        time: Date.now(),
+        user_id: JSON.parse(localStorage.user).id,
+      };
+      clockerService.updateClock(clockData).then((response) => {
+        console.log('>>>> updateClock - response = ', response);
+        if (response.status === 200 && response.data !== '') {
+          this.clockIsRunning = true;
+          this.persist();
+          this.timeOnStart = Date.now();
+          this.onDutyMsg = 'Your working time is recording...';
+        } else {
+          alert('Unable to clock you in');
+        }
+      }).catch(error => console.log('>>>> clocckin error : ', error));
+    },
+    doClockout() {
+      this.currentActiveTime = Date.now();
+      const clockData = {
+        status: false,
+        time: Date.now(),
+        user_id: JSON.parse(localStorage.user).id,
+      };
+      clockerService.updateClock(clockData).then((response) => {
+        console.log('>>>> response = ', response);
+        this.clockIsRunning = false;
+        this.persist();
+        this.timeOnStop = Date.now();
+        this.onDutyMsg = `Last clock event: ${this.timeOnStop}`;
+      }).catch(error => console.log('clockout error : ', error));
+    },
+    getUserActiveTime() {
+      console.log('>>>> localStorage.user = ', localStorage.user);
+      clockerService.getClock(JSON.parse(localStorage.user).id).then((response) => {
+        let userActiveTime = Date.now();
+        if (response.status === 200 && response.data !== '') {
+          console.log('getUserActiveTime - response = ', response);
+          userActiveTime = response.data.time;
+        }
+        this.currentActiveTime = userActiveTime;
+        console.log('>>>> this.currentActiveTime = ', this.currentActiveTime);
+        this.onDutyMsg = `Last clock event: ${userActiveTime}`;
+        // eslint-disable-next-line no-return-assign
+      }).catch(error => this.onDutyMsg = error);
+    },
+  },
+};
 
 </script>
 

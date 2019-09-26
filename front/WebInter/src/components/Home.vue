@@ -13,53 +13,53 @@
 </template>
 
 <script>
-    import UsersService from '../services/UsersService';
-    import router from '../router'
+import UsersService from '../services/UsersService';
+import router from '../router';
 
-    export default {
-        name: "Home",
-        data() {
-            return {
-                user: null,
-                users: []
-            }
-        },
-        created() {
-            if (localStorage) {
-                if (!localStorage.getItem('firstLoad')) {
-                    localStorage['firstLoad'] = true;
-                    window.location.reload();
-                } else {
-                    localStorage.removeItem('firstLoad');
-                }
-            }
-            if (localStorage.user) {
-                this.user = JSON.parse(localStorage.user);
-                let homepage = '';
-                switch (this.user.id_role) {
-                    case 1:
-                        homepage = '/HomeAdmin';
-                        break;
-                    case 2:
-                        homepage = '/HomeManager';
-                        break;
-                    case 3:
-                        homepage = '/HomeEmployee';
-                        break;
-                    default:
-                        homepage = '/Home';
-                }
-                router.push(homepage);
-            }
-        },
-        methods: {
-            getUsers() {
-                UsersService.getAllUsers().then(response => {
-                    this.users = response.data;
-                });
-            },
-        }
+export default {
+  name: 'Home',
+  data() {
+    return {
+      user: null,
+      users: [],
+    };
+  },
+  created() {
+    if (localStorage) {
+      if (!localStorage.getItem('firstLoad')) {
+        localStorage.firstLoad = true;
+        window.location.reload();
+      } else {
+        localStorage.removeItem('firstLoad');
+      }
     }
+    if (localStorage.user) {
+      this.user = JSON.parse(localStorage.user);
+      let homepage = '';
+      switch (this.user.id_role) {
+        case 1:
+          homepage = '/HomeAdmin';
+          break;
+        case 2:
+          homepage = '/HomeManager';
+          break;
+        case 3:
+          homepage = '/HomeEmployee';
+          break;
+        default:
+          homepage = '/Home';
+      }
+      router.push(homepage);
+    }
+  },
+  methods: {
+    getUsers() {
+      UsersService.getAllUsers().then((response) => {
+        this.users = response.data;
+      });
+    },
+  },
+};
 </script>
 
 <style scoped>

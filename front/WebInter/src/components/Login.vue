@@ -42,53 +42,52 @@
 
 
 <script>
-    import UsersService from '../services/UsersService';
-    import clockerService from '../services/ClockerService';
-    import router from '../router'
+import UsersService from '../services/UsersService';
+import clockerService from '../services/ClockerService';
+import router from '../router';
 
-    export default {
-        name: 'Login',
-        data() {
-            return {
-                form: {
-                    email: null,
-                    password: null
-                },
-                user: null
-            };
-        },
-        methods: {
-            persist() {
-                console.log(">>>>> user = %o", this.user);
-                localStorage.user = JSON.stringify(this.user);
-            },
-            doLogin() {
-                UsersService.findUser(this.form).then(response => {
-                    console.log(">>>> login response = ", response);
-                    if (response.status === 200 && response.data !== "") {
-                        this.user = response.data;
-                        this.persist();
-                        try {
-                            const user_id = JSON.parse(localStorage.user).id;
-                            clockerService.createClock(user_id).then(response => {
-                                console.log(response);
-                            }).catch(e => console.log(">>>> error : ", e));
-                        } catch (e) {
-                            console.log(">>>> error : ", e);
-                        }
-                        router.push("/home");
-                    } else {
-                        console.log("Fail to login : ", response);
-                        alert("No corresponding user found. Please verify your data or create an account");
-                    }
-                });
-            },
-            doSignup() {
-                router.push("/signup");
-            },
-
-        }
+export default {
+  name: 'Login',
+  data() {
+    return {
+      form: {
+        email: null,
+        password: null,
+      },
+      user: null,
     };
+  },
+  methods: {
+    persist() {
+      console.log('>>>>> user = %o', this.user);
+      localStorage.user = JSON.stringify(this.user);
+    },
+    doLogin() {
+      UsersService.findUser(this.form).then((response) => {
+        console.log('>>>> login response = ', response);
+        if (response.status === 200 && response.data !== '') {
+          this.user = response.data;
+          this.persist();
+          try {
+            const user_id = JSON.parse(localStorage.user).id;
+            clockerService.createClock(user_id).then((response) => {
+              console.log(response);
+            }).catch(e => console.log('>>>> error : ', e));
+          } catch (e) {
+            console.log('>>>> error : ', e);
+          }
+          router.push('/home');
+        } else {
+          console.log('Fail to login : ', response);
+          alert('No corresponding user found. Please verify your data or create an account');
+        }
+      });
+    },
+    doSignup() {
+      router.push('/signup');
+    },
+  },
+};
 </script>
 
 <style>

@@ -86,7 +86,7 @@
 <script>
 
 export default {
-  name: 'UserManager',
+  name: 'HomeManager',
 
   data() {
     return {

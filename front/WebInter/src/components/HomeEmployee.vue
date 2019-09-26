@@ -67,7 +67,7 @@
 <script>
 
 export default {
-  name: 'Users',
+  name: 'HomeEmployee',
 
   data() {
     return {

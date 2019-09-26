@@ -5,17 +5,17 @@
 </template>
 
 <script>
-    export default {
-        name: "footer",
-        data() {
-            return {
-                copyrightMessage: ""
-            }
-        },
-        created() {
-            this.copyrightMessage = "Copyright Team_21 - 2019";
-        }
-    }
+export default {
+  name: 'footer',
+  data() {
+    return {
+      copyrightMessage: '',
+    };
+  },
+  created() {
+    this.copyrightMessage = 'Copyright Team_21 - 2019';
+  },
+};
 </script>
 
 <style scoped>

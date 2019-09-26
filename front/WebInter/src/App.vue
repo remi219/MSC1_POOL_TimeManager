@@ -7,28 +7,28 @@
 </template>
 
 <script>
-    import Navbar from './components/Navbar';
-    import Footer from './components/Footer';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
-    export default {
-        name: 'App',
-        footer_authors: 'Team_21',
-        components: { Navbar, Footer },
-        data() {
-            return {
-                user: null,
-                clockIsRunning: false
-            };
-        },
-        mounted() {
-            if (localStorage.user) {
-                this.user = JSON.parse(localStorage.user);
-            }
-            if (localStorage.clockIsRunning) {
-                this.clockIsRunning = localStorage.clockIsRunning;
-            }
-        }
+export default {
+  name: 'App',
+  footer_authors: 'Team_21',
+  components: { Navbar, Footer },
+  data() {
+    return {
+      user: null,
+      clockIsRunning: false,
     };
+  },
+  mounted() {
+    if (localStorage.user) {
+      this.user = JSON.parse(localStorage.user);
+    }
+    if (localStorage.clockIsRunning) {
+      this.clockIsRunning = localStorage.clockIsRunning;
+    }
+  },
+};
 </script>
 
 <style>
