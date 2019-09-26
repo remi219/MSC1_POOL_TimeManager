@@ -21,13 +21,6 @@
 </template>
 
 <script>
-  /* TODO :
-  la creation marche
-  pb sur le delete (à cause du ondelete cascade
-  re test
-      creer un user
-      check ...
-  */
     import clockerService from '../services/ClockerService';
 
     export default {
