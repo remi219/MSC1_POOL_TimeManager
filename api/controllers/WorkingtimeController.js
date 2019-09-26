@@ -1,29 +1,24 @@
 let express = require('express');
 let models = require('../models/index');
-var Sequelize = require('sequelize');
+let Sequelize = require('sequelize');
 
 module.exports = {
     getAllByUserIdAndRange: function (req, res) {
-        if (Object.keys((req.query)).length !== 0) {
-            let id_user = req.query.id_user;
-            let start = req.query.start;
-            let end = req.query.end;
-            if (id_user !== undefined && start !== undefined && end !== undefined) {
-                models.Workingtime.findOne({
-                    where: { id_user: id_user },
-                    and: {
-                        start: {
-                            [Sequelize.Op.gte]: start
-                        },
-                        end: {
-                            [Sequelize.Op.lte]: end
-                        }
-                    }
-                }).then((wt) => res.json(wt));
+        console.log(">>>> getAllByUserIdAndRange - req.query = ", req.query);
+        const id_user = req.query.id_user;
+        const start = req.query.start;
+        const end = req.query.end;
+        models.Workingtime.findAll({
+            where: {
+                id_user: id_user,
+                start: { [Sequelize.Op.gte]: start },
+                end: { [Sequelize.Op.lte]: end }
             }
-        } else {
-            models.Workingtime.findAll().then((users) => res.json(users));
-        }
+        }).then(wt => {
+            res.status(200).json(wt)
+        }).catch(error => {
+            res.status(500).json(error)
+        });
     },
     getOneByUserIdAndId: function (req, res) {
         models.Workingtime.findOne({
@@ -32,12 +27,18 @@ module.exports = {
         }).then(wt => res.json(wt));
     },
     createWorkingtime: function (req, res) {
+        console.log(">>>>> createWorkingtime - req.body = ", req.body);
         models.Workingtime.create({
-                id_user: req.params.id_user,
-                start: req.body.workingtime.start,
-                end: req.body.workingtime.end
-            }).then(wt => res.status(200).send('Workingtime successfully created! '+wt))
-            .catch(error => res.status(500).send(error));
+            id_user: req.params.id_user,
+            start: req.body.start,
+            end: req.body.end
+        }).then(wt => {
+            console.log(">>>>> createWT OK : ", wt);
+            res.status(200).json(wt);
+        }).catch(error => {
+            console.log(">>>>> createWT ERROR : ", error);
+            res.status(500).json(error);
+        });
     },
     updateWorkingtime: function (req, res) {
         models.Workingtime.update({
@@ -47,12 +48,12 @@ module.exports = {
         },{
             where: { id: req.params.id }
         }).then(wt => res.status(200).send('Workingtime successfully updated! '+wt))
-            .catch(error => res.status(500).send(error));
+            .catch(error => res.status(500).json(error));
     },
     deleteWorkingtime: function (req, res) {
         models.Workingtime.destroy({ where: { id: req.params.id }})
             .then(wt => res.status(200).send('Workingtime successfully deleted! '+wt))
-            .catch(error => res.status(500).send(error));
+            .catch(error => res.status(500).json(error));
     },
     deleteByUserId: function(id_user) {
         models.Workingtime.destroy({ where: { id_user: id_user }});

@@ -31,7 +31,7 @@
             setTimeout(() => {
                 localStorage.clear();
                 router.push('/login');
-            }, 2000);
+            }, 1000);
         }
     };
 </script>

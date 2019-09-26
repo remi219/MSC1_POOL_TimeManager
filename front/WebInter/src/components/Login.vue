@@ -57,6 +57,16 @@
                 user: null
             };
         },
+        created() {
+            if (localStorage) {
+                if (!localStorage.getItem('firstLoad')) {
+                    localStorage['firstLoad'] = true;
+                    window.location.reload();
+                } else {
+                    localStorage.removeItem('firstLoad');
+                }
+            }
+        },
         methods: {
             persist() {
                 console.log(">>>>> user = %o", this.user);
