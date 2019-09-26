@@ -24,7 +24,12 @@ module.exports = {
         models.Workingtime.findOne({
             where: { id: req.params.id },
             and: { id_user: req.params.id_user }
-        }).then(wt => res.json(wt));
+        }).then(wt => {
+            res.status(200).json(wt);
+        }).catch(error => {
+            console.log(">>>> getOneByUserIdAndId ERROR : ", error);
+            res.status(200).json(error);
+        });
     },
     createWorkingtime: function (req, res) {
         console.log(">>>>> createWorkingtime - req.body = ", req.body);
@@ -41,14 +46,19 @@ module.exports = {
         });
     },
     updateWorkingtime: function (req, res) {
+        console.log(">>>> updatewt - req.body = ", req.body);
         models.Workingtime.update({
             id_user: req.body.workingtime.id_user,
             start: req.body.workingtime.start,
             end: req.body.workingtime.end
         },{
             where: { id: req.params.id }
-        }).then(wt => res.status(200).send('Workingtime successfully updated! '+wt))
-            .catch(error => res.status(500).json(error));
+        }).then(wt => {
+            res.status(200).json(wt)
+        }).catch(error => {
+            console.log(">>>> updatewt - ERROR : ", error);
+            res.status(500).json(error);
+        });
     },
     deleteWorkingtime: function (req, res) {
         models.Workingtime.destroy({ where: { id: req.params.id }})

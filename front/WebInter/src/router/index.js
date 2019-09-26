@@ -2,16 +2,14 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Users from '../components/Users';
 import WorkingTimes from '../components/WorkingTimes';
-import Calendar from '../components/Calendar';
+import WorkingTime from "../components/WorkingTime";
 import Signup from '../components/Signup';
 import Login from '../components/Login';
 import Clocker from '../components/Clocker';
 import Logout from '../components/Logout';
 import Settings from '../components/Settings';
-import ChartManager from '../components/ChartManager';
 import EditProfile from '../components/EditProfile';
 import Home from '../components/Home';
-
 
 Vue.use(Router);
 
@@ -52,9 +50,9 @@ export default new Router({
       component: WorkingTimes,
     },
     {
-      path: '/calendar',
-      name: 'Calendar',
-      component: Calendar,
+      path: '/workingtime/:id',
+      name: 'WorkingTime',
+      component: WorkingTime,
     },
     {
       path: '/clocker',
@@ -65,11 +63,6 @@ export default new Router({
       path: '/settings',
       name: 'Settings',
       component: Settings,
-    },
-    {
-      path: '/chartmanager',
-      name: 'ChartManager',
-      component: ChartManager,
     },
     {
       path: '/editprofile',

@@ -20,11 +20,12 @@
               <md-table-row>
                 <md-table-head v-for="header in wt_headers">{{ header }}</md-table-head>
               </md-table-row>
-              <md-table-row v-for="wt in workingtimes">
+              <md-table-row v-for="(wt, index) in workingtimes" v-bind:key="wt.id" :value="wt">
                 <md-table-cell>{{ wt.id }}</md-table-cell>
                 <md-table-cell>{{ wt.start }}</md-table-cell>
                 <md-table-cell>{{ wt.end }}</md-table-cell>
-                <md-table-cell>>> {{ wt.id }}</md-table-cell>
+                <!--<md-table-cell><button class="button_edit" @click="editWorkingTime(index)"> >> {{ wt.id }} </button></md-table-cell>-->
+                <md-table-cell><router-link :to="{ name: 'WorkingTime', params: { id: wt.id } }">Edit</router-link></md-table-cell>
               </md-table-row>
             </md-table>
           </div>
@@ -108,14 +109,14 @@
                 console.log(">>>> changeMonth - date_end = ", this.date_end);
                 this.getWorkingTimes();
             },
-            editWorkingTime() {
-
+            editWorkingTime(index) {
+                console.log(">>>> workingtime to edit : ", this.workingtimes[index]);
             }
         }
     };
 </script>
 
-<style>
+<style scoped>
   h2 {
     font-style: italic;
     font-size: 22px;

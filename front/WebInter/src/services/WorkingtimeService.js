@@ -13,24 +13,29 @@ export default {
     };
     return axios.get(urlBase, data);
   },
-  createWorkingtime: function (workingtime) {
-    console.log(">>>> Service createWorkintime - workingtime = ", workingtime);
+  getWorkingtimeById: function (workingtimeData) {
+    console.log(">>>> Service createWorkintime - workingtime = ", workingtimeData);
+    const url =  urlBase+'/'+workingtimeData.id_user+'/'+workingtimeData.id_wt;
+    return axios.get(url);
+  },
+  createWorkingtime: function (workingtimeData) {
+    console.log(">>>> Service createWorkintime - workingtime = ", workingtimeData);
     let data = {
-      id_user: workingtime.id_user,
-      start: workingtime.start,
-      end: workingtime.end
+      id_user: workingtimeData.id_user,
+      start: workingtimeData.start,
+      end: workingtimeData.end
     };
-    const url =  urlBase+'/'+workingtime.id_user;
+    const url =  urlBase+'/'+workingtimeData.id_user;
     return axios.post(url, data);
   },
-  updateWorkingtime: function (workingtime) {
-    console.log(">>>> createWorkintime - workingtime = ", workingtime);
+  updateWorkingtime: function (workingtimeData) {
+    console.log(">>>> createWorkintime - workingtime = ", workingtimeData);
     let data = {
-      id: workingtime.wt_id,
-      start: workingtime.start,
-      end: workingtime.end
+      id_user: workingtimeData.user_id,
+      start: workingtimeData.start,
+      end: workingtimeData.end
     };
-    const url =  urlBase+'/'+workingtime.wt_id;
-    return axios.post(url, data);
+    const url =  urlBase+'/'+workingtimeData.wt_id;
+    return axios.put(url, data);
   }
 }

@@ -1,89 +1,146 @@
 <template>
-  <!-- eslint-disable -->
-  <div class="page-container">
-    <md-app md-waterfall md-mode="fixed-last">
-      <md-app-toolbar class="md-large md-dense md-primary" style="background-color: #4682B4">
-        <div class="md-toolbar-row">
-          <div class="md-toolbar-section-start">
-            <span class="md-title">Time Manager</span>
-          </div>
-          <md-card-media>
-            <img src="../assets/logogc.png" alt="Avatar">
-          </md-card-media>
-        </div>
 
-        <div class="md-toolbar-row">
-          <md-tabs class="md-transparent" >
-            <md-tab  id="tab-home" md-label="Profile" to='Users'></md-tab>
-            <md-tab id="tab-pages" md-label="WorkingTime" to='WorkingTime'></md-tab>
-            <md-tab id="tab-posts" md-label="ClockManager" to='ClockManager'></md-tab>
-            <md-tab id="tab-favorites" md-label="WorkingTimes" to='WorkingTimes'></md-tab>
-            <md-tab id="tab-other" md-label="ChartManager" to='ChartManager'></md-tab>
-          </md-tabs>
-        </div>
-      </md-app-toolbar>
-    </md-app>
+  <div class="page-container">
+    <div class="container_wt_edition">
+      <h1>Working time edition</h1>
+      <table class="table_wt_edit">
+        <thead>
+        <tr style="font-style: italic">
+          <td colspan="5">Initial working time:</td>
+        </tr>
+        <tr>
+          <th>ID</th>
+          <th colspan="2">START</th>
+          <th colspan="2">END</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>{{ old_wt.id }}</td>
+          <td colspan="2">{{ old_wt.start }}</td>
+          <td colspan="2">{{ old_wt.end }}</td>
+        </tr>
+        <tr style="font-style: italic">
+          <td colspan="5">New information:</td>
+        </tr>
+        <tr>
+          <td><div> >> </div></td>
+          <td><label for="input_new_start_date">New start date</label></td>
+          <td><label for="input_new_start_time">New start time</label></td>
+          <td><label for="input_new_end_date">New end date</label></td>
+          <td><label for="input_new_end_time">New end time</label></td>
+        </tr>
+        <tr style="background-color: white!important; color: #757575">
+          <td><div> >> </div></td>
+          <td><input id="input_new_start_date" type="date" value="{{ new_wt.start_date }}"></td>
+          <td><input id="input_new_start_time" type="time" value="{{ new_wt.start_time }}"></td>
+          <td><input id="input_new_end_date" type="date" value="{{ new_wt.end_date }}"></td>
+          <td><input id="input_new_end_time" type="time" value="{{ new_wt.end_time }}"></td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+          <td colspan="5">
+            <button class="button_validate" @click="updateWorkingtime">Validate</button>
+          </td>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
   </div>
 </template>
 
 <script>
+    import workingtimeService from '../services/WorkingtimeService';
+    import router from '../router';
 
-export default {
-  name: 'WorkingTime',
-  component: 'Connection',
-  data: () => ({
-    selectedEvent: {},
-    showDialog: false,
-    events: [
-      {
-        start: '2018-11-20 14:00',
-        end: '2018-11-20 18:00',
-        title: 'Need to go shopping',
-        icon: 'shopping_cart', // Custom attribute.
-        content: 'Click to see my shopping list',
-        contentFull: 'My shopping list is rather long:<br><ul><li>Avocadoes</li><li>Tomatoes</li><li>Potatoes</li><li>Mangoes</li></ul>', // Custom attribute.
-        class: 'leisure',
-      },
-      {
-        start: '2018-11-22 10:00',
-        end: '2018-11-22 15:00',
-        title: 'Golf with John',
-        icon: 'golf_course', // Custom attribute.
-        content: 'Do I need to tell how many holes?',
-        contentFull: 'Okay.<br>It will be a 18 hole golf course.', // Custom attribute.
-        class: 'sport',
-      },
-    ],
-  }),
-  methods: {
-    onEventClick(event, e) {
-      this.selectedEvent = event;
-      this.showDialog = true;
-
-      // Prevent navigating to narrower view (default vue-cal behavior).
-      e.stopPropagation();
-    },
-  },
-};
+    export default {
+        name: 'WorkingTime',
+        data() {
+            return {
+                wt_id: 0,
+                old_wt: null,
+                new_wt: {
+                    start_date: null,
+                    start_time: null,
+                    end_date: null,
+                    end_time: null,
+                }
+            }
+        },
+        created() {
+            this.wt_id = this.$route.params.id;
+            this.loadWorkingTime();
+        },
+        methods: {
+            navigateBack() {
+                alert("Working time successfully updated!\nYou'll now be redirected to previous page");
+                setTimeout(() => {
+                    router.go(-1);
+                }, 500);
+            },
+            loadWorkingTime() {
+                const workingtimeData = {
+                    id_user: JSON.parse(localStorage.user).id,
+                    id_wt: this.wt_id,
+                };
+                workingtimeService.getWorkingtimeById(workingtimeData).then(response => {
+                    console.log(">>>> getWtById - response = ", response);
+                    if (response.status === 200 && response.data !== "") {
+                        this.old_wt = response.data;
+                    }
+                }).catch(error => {
+                    console.log("getWtById - error = ", error);
+                });
+            },
+            updateWorkingtime() {
+                const start_date = this.new_wt.start_date.replace('/', '-')+' '+this.new_wt.start_time;
+                const end_date = this.new_wt.end_date.replace('/', '-')+' '+this.new_wt.end_time;
+                const newWorkingtimeData = {
+                    wt_id: this.old_wt.id,
+                    user_id: this.old_wt.id_user,
+                    start: new Date(start_date),
+                    end: new Date(end_date)
+                };
+                console.log(">>>> updateWt - newWorkingtimeData = ", newWorkingtimeData);
+                workingtimeService.updateWorkingtime(newWorkingtimeData).then(response => {
+                    console.log(">>>> updateWt - response = ", response);
+                    if (response.status === 200 && response.data !== "") {
+                        this.navigateBack();
+                    }
+                }).catch(error => {
+                    console.log(">>>> updateWt - error = ", error);
+                });
+            }
+        },
+    };
 </script>
 
-<style>
-  .vuecal__event {cursor: pointer;}
-
-  .vuecal__event-title {
-    font-size: 1.2em;
+<style scoped>
+  .container_wt_edition {
+    background-color: lavender;
+    alignment: center!important;
+    text-align: center;
+    vertical-align: center;
+    padding: 20px;
+    font-size: 14px;
+  }
+  .table_wt_edit, th, td {
+    border: 1px solid #2c3e50;
+    margin: 10px;
+    padding: 15px!important;
+    border-collapse: collapse;
+  }
+  .button_validate {
+    width: 200px;
+    height: 30px;
+    background-color: forestgreen;
+    border: 1px solid darkgreen;
+    border-radius: 6px;
+    color: white;
     font-weight: bold;
-    margin: 4px 0 8px;
-  }
-
-  .vuecal__event-time {
-    display: inline-block;
-    margin-bottom: 12px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  }
-
-  .vuecal__event-content {
     font-style: italic;
+    margin: 10px;
   }
+
 </style>
