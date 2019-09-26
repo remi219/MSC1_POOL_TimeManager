@@ -17,23 +17,23 @@
 </template>
 
 <script>
-import router from '../router';
+    import router from '../router';
 
-export default {
-  name: 'Logout',
-  data() {
-    return {
-      message: '',
+    export default {
+        name: 'Logout',
+        data() {
+            return {
+                message: ""
+            }
+        },
+        created() {
+            this.message = "See you soon";
+            setTimeout(() => {
+                localStorage.clear();
+                router.push('/login');
+            }, 1000);
+        }
     };
-  },
-  created() {
-    this.message = 'See you soon';
-    setTimeout(() => {
-      localStorage.clear();
-      router.push('/login');
-    }, 2000);
-  },
-};
 </script>
 
 <style scoped>
