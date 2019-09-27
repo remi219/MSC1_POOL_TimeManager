@@ -38,7 +38,7 @@
           <tfoot>
           <tr>
             <td colspan="4">
-              <button class="button_validate" @click="updateWorkingtime">Validate</button>
+              <button class="button_cancel" @click="doCancel">Cancel</button><button class="button_validate" @click="updateWorkingtime">Validate</button>
             </td>
           </tr>
           </tfoot>
@@ -78,10 +78,9 @@
                 this.new_wt.end_time = document.getElementById('input_new_end_time').value;
             },
             navigateBack() {
-                alert("Working time successfully updated!\nYou'll now be redirected to previous page");
                 setTimeout(() => {
                     router.go(-1);
-                }, 500);
+                }, 200);
             },
             loadWorkingTime() {
                 const workingtimeData = {
@@ -98,23 +97,31 @@
                 });
             },
             updateWorkingtime() {
-                const start_date = this.new_wt.start_date.replace('/', '-')+' '+this.new_wt.start_time;
-                const end_date = this.new_wt.end_date.replace('/', '-')+' '+this.new_wt.end_time;
-                const newWorkingtimeData = {
-                    wt_id: this.old_wt.id,
-                    user_id: this.old_wt.id_user,
-                    start: new Date(start_date),
-                    end: new Date(end_date)
-                };
-                console.log(">>>> updateWt - newWorkingtimeData = ", newWorkingtimeData);
-                workingtimeService.updateWorkingtime(newWorkingtimeData).then(response => {
-                    console.log(">>>> updateWt - response = ", response);
-                    if (response.status === 200 && response.data !== "") {
-                        this.navigateBack();
-                    }
-                }).catch(error => {
-                    console.log(">>>> updateWt - error = ", error);
-                });
+                if (this.new_wt.start_date && this.new_wt.end_date && this.new_wt.start_time && this.new_wt.end_time) {
+                    const start_date = this.new_wt.start_date.replace('/', '-')+' '+this.new_wt.start_time;
+                    const end_date = this.new_wt.end_date.replace('/', '-')+' '+this.new_wt.end_time;
+                    const newWorkingtimeData = {
+                        wt_id: this.old_wt.id,
+                        user_id: this.old_wt.id_user,
+                        start: new Date(start_date),
+                        end: new Date(end_date)
+                    };
+                    console.log(">>>> updateWt - newWorkingtimeData = ", newWorkingtimeData);
+                    workingtimeService.updateWorkingtime(newWorkingtimeData).then(response => {
+                        console.log(">>>> updateWt - response = ", response);
+                        if (response.status === 200 && response.data !== "") {
+                            alert("Working time successfully updated!\nYou'll now be redirected to previous page");
+                            this.navigateBack();
+                        }
+                    }).catch(error => {
+                        console.log(">>>> updateWt - error = ", error);
+                    });
+                } else {
+                    alert("You must fill all \"Updates\" fields to validate the modification");
+                }
+            },
+            doCancel() {
+                this.navigateBack();
             }
         },
     };
@@ -160,7 +167,19 @@
     font-weight: bold;
     font-style: italic;
     font-size: 16px;
-    margin: 5px;
+    margin: 15px 0 5px 50px;
+  }
+  .button_cancel {
+    width: 200px;
+    height: 35px;
+    background-color: firebrick;
+    border: 1px solid darkred;
+    border-radius: 6px;
+    color: white;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 16px;
+    margin: 15px 50px 5px 0;
   }
   .input_elem {
     background-color: white!important;

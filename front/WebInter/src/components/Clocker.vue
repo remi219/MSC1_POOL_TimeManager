@@ -87,7 +87,7 @@
                     this.clockIsRunning = false;
                     this.timeOnStop = Date.now();
                     this.persist();
-                    this.onDutyMsg = "Last clock event: "+this.timeOnStop;
+                    this.onDutyMsg = "Last clock event: "+this.timeOnStop.toLocaleString('en-US');
                 }).catch(error => console.log("clockout error : ", error));
                 const workingtime = {
                     id_user: JSON.parse(localStorage.user).id,
@@ -108,7 +108,7 @@
                     }
                     this.currentActiveTime = userActiveTime;
                     console.log(">>>> this.currentActiveTime = ", this.currentActiveTime);
-                    this.onDutyMsg = this.clockIsRunning ? "Your working time is recording..." : "Last clock event: "+userActiveTime;
+                    this.onDutyMsg = this.clockIsRunning ? "Your working time is recording..." : "Last clock event: "+userActiveTime.toLocaleString('en-US');
                 }).catch(error => this.onDutyMsg = error);
             }
         }

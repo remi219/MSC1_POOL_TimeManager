@@ -17,7 +17,7 @@
               <md-table-toolbar>
                 <h2 class="md-title">Working Times for {{ selected_month.label }}</h2>
               </md-table-toolbar>
-              <md-table-row>
+              <md-table-row style="text-align: center;">
                 <md-table-head v-for="header in wt_headers">{{ header }}</md-table-head>
               </md-table-row>
               <md-table-row v-for="(wt, index) in workingtimes" v-bind:key="wt.id" :value="wt">
@@ -154,12 +154,16 @@
     padding: 6px 32px 6px 24px;
     font-size: 14px;
   }
+  th {
+
+    font-size: 16px;
+    text-align: center!important;
+  }
   .md-table-head-container, .md-table-head-label {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size: 16px;
-    text-align: center!important;
+    text-align: center;
   }
   .button_edit {
     background-color: #ff9800;
