@@ -13,7 +13,8 @@
     "jade": "~1.11.0",
     "morgan": "~1.9.1",
     "mysql2": "^1.7.0",
-    "sequelize": "^5.18.4"
+    "sequelize": "^5.18.4",
+    "cors": "latest"
   },
   "devDependencies": {
     "nodemon": "^1.19.2"
