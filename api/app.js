@@ -22,6 +22,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
+app.use('*', cors()) // include before other routes
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/clocker', clockerRouter);

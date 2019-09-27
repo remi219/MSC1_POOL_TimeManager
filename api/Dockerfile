@@ -5,8 +5,8 @@ WORKDIR /usr/src/app
 COPY . .
 
 RUN npm install && \
-	npm install --g sequelize sequelize-cli mysql2 && \
-	npm install --save jsonwebtoken csurf cors
+	npm install --g sequelize sequelize-cli mysql2 axios && \
+	npm install --save jsonwebtoken csurf cors axios
 
 EXPOSE 3000
 
