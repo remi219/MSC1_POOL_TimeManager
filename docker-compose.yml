@@ -16,6 +16,7 @@ services:
     depends_on:
       - "bdd"
     volumes:
+      - /usr/src/app/node_modules
       - ./api:/usr/src/app/
 
   bdd:
