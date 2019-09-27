@@ -48,9 +48,9 @@ module.exports = {
     updateWorkingtime: function (req, res) {
         console.log(">>>> updatewt - req.body = ", req.body);
         models.Workingtime.update({
-            id_user: req.body.workingtime.id_user,
-            start: req.body.workingtime.start,
-            end: req.body.workingtime.end
+            id_user: req.body.id_user,
+            start: req.body.start,
+            end: req.body.end
         },{
             where: { id: req.params.id }
         }).then(wt => {
@@ -62,7 +62,7 @@ module.exports = {
     },
     deleteWorkingtime: function (req, res) {
         models.Workingtime.destroy({ where: { id: req.params.id }})
-            .then(wt => res.status(200).send('Workingtime successfully deleted! '+wt))
+            .then(wt => res.status(200).send('Workingtime successfully deleted!'))
             .catch(error => res.status(500).json(error));
     },
     deleteByUserId: function(id_user) {

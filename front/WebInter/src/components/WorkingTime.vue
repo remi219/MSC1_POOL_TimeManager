@@ -3,49 +3,47 @@
   <div class="page-container">
     <div class="container_wt_edition">
       <h1>Working time edition</h1>
-      <table class="table_wt_edit">
-        <thead>
-        <tr style="font-style: italic">
-          <td colspan="5">Initial working time:</td>
-        </tr>
-        <tr>
-          <th>ID</th>
-          <th colspan="2">START</th>
-          <th colspan="2">END</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td>{{ old_wt.id }}</td>
-          <td colspan="2">{{ old_wt.start }}</td>
-          <td colspan="2">{{ old_wt.end }}</td>
-        </tr>
-        <tr style="font-style: italic">
-          <td colspan="5">New information:</td>
-        </tr>
-        <tr>
-          <td><div> >> </div></td>
-          <td><label for="input_new_start_date">New start date</label></td>
-          <td><label for="input_new_start_time">New start time</label></td>
-          <td><label for="input_new_end_date">New end date</label></td>
-          <td><label for="input_new_end_time">New end time</label></td>
-        </tr>
-        <tr style="background-color: white!important; color: #757575">
-          <td><div> >> </div></td>
-          <td><input id="input_new_start_date" type="date" value="{{ new_wt.start_date }}"></td>
-          <td><input id="input_new_start_time" type="time" value="{{ new_wt.start_time }}"></td>
-          <td><input id="input_new_end_date" type="date" value="{{ new_wt.end_date }}"></td>
-          <td><input id="input_new_end_time" type="time" value="{{ new_wt.end_time }}"></td>
-        </tr>
-        </tbody>
-        <tfoot>
-        <tr>
-          <td colspan="5">
-            <button class="button_validate" @click="updateWorkingtime">Validate</button>
-          </td>
-        </tr>
-        </tfoot>
-      </table>
+      <div class="table_container">
+        <table class="table_wt_edit">
+          <thead>
+          <tr style="font-style: italic; font-size: 16px;">
+            <td colspan="4">Initial working time:</td>
+          </tr>
+          <tr>
+            <th colspan="2">START</th>
+            <th colspan="2">END</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td colspan="2">{{ old_wt.start }}</td>
+            <td colspan="2">{{ old_wt.end }}</td>
+          </tr>
+          <tr style="font-style: italic; font-size: 16px;">
+            <td colspan="4">Updates:</td>
+          </tr>
+          <tr>
+            <td><label for="input_new_start_date">New start date</label></td>
+            <td><label for="input_new_start_time">New start time</label></td>
+            <td><label for="input_new_end_date">New end date</label></td>
+            <td><label for="input_new_end_time">New end time</label></td>
+          </tr>
+          <tr>
+            <td><div class="input_elem"><input id="input_new_start_date" type="date" value="{{ new_wt.start_date }}" @change="getInputValues"></div></td>
+            <td><div class="input_elem"><input id="input_new_start_time" type="time" value="{{ new_wt.start_time }}" @change="getInputValues"></div></td>
+            <td><div class="input_elem"><input id="input_new_end_date" type="date" value="{{ new_wt.end_date }}" @change="getInputValues"></div></td>
+            <td><div class="input_elem"><input id="input_new_end_time" type="time" value="{{ new_wt.end_time }}" @change="getInputValues"></div></td>
+          </tr>
+          </tbody>
+          <tfoot>
+          <tr>
+            <td colspan="4">
+              <button class="button_validate" @click="updateWorkingtime">Validate</button>
+            </td>
+          </tr>
+          </tfoot>
+        </table>
+      </div>
     </div>
   </div>
 </template>
@@ -73,6 +71,24 @@
             this.loadWorkingTime();
         },
         methods: {
+            getInputValues() {
+                this.new_wt.start_date = document.getElementById('input_new_start_date').value;
+                this.new_wt.start_time = document.getElementById('input_new_start_time').value;
+                this.new_wt.end_date = document.getElementById('input_new_end_date').value;
+                this.new_wt.end_time = document.getElementById('input_new_end_time').value;
+            },
+            setSDValue(value) {
+                this.new_wt.start_date = value;
+            },
+            setSTValue(input) {
+                this.new_wt.start_time = input.value;
+            },
+            setEDValue(input) {
+                this.new_wt.end_date = input.value;
+            },
+            setETValue(input) {
+                this.new_wt.end_time = input.value;
+            },
             navigateBack() {
                 alert("Working time successfully updated!\nYou'll now be redirected to previous page");
                 setTimeout(() => {
@@ -117,30 +133,53 @@
 </script>
 
 <style scoped>
+  html, body {
+    width: 100%;
+  }
+  table {
+    margin: 0 auto;
+    width: 60%;
+  }
+  th, td {
+    padding: 5px 15px;
+    margin: 0 10px;
+  }
   .container_wt_edition {
-    background-color: lavender;
-    alignment: center!important;
     text-align: center;
     vertical-align: center;
     padding: 20px;
     font-size: 14px;
   }
-  .table_wt_edit, th, td {
-    border: 1px solid #2c3e50;
-    margin: 10px;
-    padding: 15px!important;
+  .table_container {
+    background-color: lavender;
+    text-align: center!important;
+    vertical-align: middle;
+    border: 1px solid #212121;
+    border-radius: 6px!important;
+    margin: 10px 300px;
+    padding: 10px 0;
+  }
+  .table_wt_edit {
     border-collapse: collapse;
   }
   .button_validate {
     width: 200px;
-    height: 30px;
+    height: 35px;
     background-color: forestgreen;
     border: 1px solid darkgreen;
     border-radius: 6px;
     color: white;
     font-weight: bold;
     font-style: italic;
-    margin: 10px;
+    font-size: 16px;
+    margin: 5px;
+  }
+  .input_elem {
+    background-color: white!important;
+    color: #757575;
+    border-radius: 6px!important;
+    margin: 0 10px!important;
+    padding: 5px 0;
   }
 
 </style>

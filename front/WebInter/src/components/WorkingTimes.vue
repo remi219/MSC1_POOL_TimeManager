@@ -12,7 +12,7 @@
           </div>
         </div>
         <div class="md-layout md-alignment-center">
-          <div id="table">
+          <div id="table" v-if="workingtimes.length > 0">
             <md-table md-card>
               <md-table-toolbar>
                 <h2 class="md-title">Working Times for {{ selected_month.label }}</h2>
@@ -24,10 +24,12 @@
                 <md-table-cell>{{ wt.id }}</md-table-cell>
                 <md-table-cell>{{ wt.start }}</md-table-cell>
                 <md-table-cell>{{ wt.end }}</md-table-cell>
-                <!--<md-table-cell><button class="button_edit" @click="editWorkingTime(index)"> >> {{ wt.id }} </button></md-table-cell>-->
-                <md-table-cell><router-link :to="{ name: 'WorkingTime', params: { id: wt.id } }">Edit</router-link></md-table-cell>
+                <md-table-cell><router-link class="button_edit" :to="{ name: 'WorkingTime', params: { id: wt.id } }" style="color: black!important;">Edit</router-link><button class="button_delete" @click="deleteWorkingTime(index)">Delete</button></md-table-cell>
               </md-table-row>
             </md-table>
+          </div>
+          <div v-else>
+            <div class="msg_no_results">{{ msgNoResults }}</div>
           </div>
         </div>
       </md-app-content>
@@ -44,9 +46,10 @@
             return {
                 user: null,
                 wt_headers: [
-                    "ID", "START", "END", "EDIT"
+                    "ID", "START", "END", "EDIT / DELETE"
                 ],
                 workingtimes: [],
+                msgNoResults: "",
                 select_wt: null,
                 selected_month: null,
                 months: [
@@ -94,6 +97,8 @@
                         console.log(">>>> getWT data = ", this.workingtimes);
                         data.forEach(wt => this.workingtimes.push(wt));
                         console.log(">>>> getWT this.workingtimes = ", this.workingtimes);
+                    } else if (response.status === 200 && response.data === "") {
+                        this.msgNoResults = "No working times found for this month";
                     }
                 }).catch(error => console.log(error));
             },
@@ -109,8 +114,11 @@
                 console.log(">>>> changeMonth - date_end = ", this.date_end);
                 this.getWorkingTimes();
             },
-            editWorkingTime(index) {
-                console.log(">>>> workingtime to edit : ", this.workingtimes[index]);
+            deleteWorkingTime(index) {
+                console.log(">>>> workingtime to delete : ", this.workingtimes[index]);
+                wtService.deleteWorkingTime(this.workingtimes[index].id).then(response => {
+                    console.log(">>>> deleteWt - response = ", response);
+                }).catch(error => console.log(">>>>> deleteWt - error : ", error));
             }
         }
     };
@@ -150,6 +158,32 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     font-size: 16px;
+    text-align: center!important;
+  }
+  .button_edit {
+    background-color: #ff9800;
+    color: #212121;
+    border: 1px solid #212121;
+    border-radius: 8px;
+    padding: 5px 15px;
+    margin: 5px;
+    font-size: 14px;
+  }
+  .button_delete {
+    background-color: #c62828;
+    color: white;
+    border: 1px solid darkred;
+    border-radius: 8px;
+    padding: 5px 15px;
+    margin: 5px;
+    font-size: 14px;
+  }
+  .msg_no_results {
+    background-color: gainsboro;
+    font-size: 16px!important;
+    font-style: italic;
+    color: #212121;
+    text-align: center;
   }
 
 </style>

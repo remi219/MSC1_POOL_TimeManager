@@ -37,5 +37,9 @@ export default {
     };
     const url =  urlBase+'/'+workingtimeData.wt_id;
     return axios.put(url, data);
+  },
+  deleteWorkingTime(wt_id) {
+    const url =  urlBase+'/'+wt_id;
+    return axios.delete(url);
   }
 }
