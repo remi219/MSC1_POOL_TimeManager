@@ -118,6 +118,7 @@
                 console.log(">>>> workingtime to delete : ", this.workingtimes[index]);
                 wtService.deleteWorkingTime(this.workingtimes[index].id).then(response => {
                     console.log(">>>> deleteWt - response = ", response);
+                    this.getWorkingTimes();
                 }).catch(error => console.log(">>>>> deleteWt - error : ", error));
             }
         }
