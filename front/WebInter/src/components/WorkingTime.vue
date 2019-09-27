@@ -77,18 +77,6 @@
                 this.new_wt.end_date = document.getElementById('input_new_end_date').value;
                 this.new_wt.end_time = document.getElementById('input_new_end_time').value;
             },
-            setSDValue(value) {
-                this.new_wt.start_date = value;
-            },
-            setSTValue(input) {
-                this.new_wt.start_time = input.value;
-            },
-            setEDValue(input) {
-                this.new_wt.end_date = input.value;
-            },
-            setETValue(input) {
-                this.new_wt.end_time = input.value;
-            },
             navigateBack() {
                 alert("Working time successfully updated!\nYou'll now be redirected to previous page");
                 setTimeout(() => {
