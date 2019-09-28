@@ -1,13 +1,14 @@
 let express = require('express');
 let router = express.Router();
 let clockCtrl = require('../controllers/ClockingController');
+let cors = require('cors');
 
-router.get('/:id', clockCtrl.getByUserId);
+router.get('/:id', cors(), clockCtrl.getByUserId);
 
-router.post('/', clockCtrl.createClock);
+router.post('/', cors(), clockCtrl.createClock);
 
-router.put('/:id', clockCtrl.updateClock);
+router.put('/:id', cors(), clockCtrl.updateClock);
 
-router.delete('/:id', clockCtrl.deleteClock);
+router.delete('/:id', cors(), clockCtrl.deleteClock);
 
 module.exports = router;

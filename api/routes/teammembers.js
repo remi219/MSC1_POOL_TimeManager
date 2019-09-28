@@ -1,6 +1,7 @@
 let express = require('express');
 let router = express.Router();
 let teammemberCtrl = require('../controllers/TeamMemberController');
+let cors = require('cors');
 /*
 let verifyToken = require('../Auth/VerifyToken');
 
@@ -13,13 +14,13 @@ router.post('/', verifyToken, teammemberCtrl.addUserToTeam());
 router.delete('/:id', verifyToken, teammemberCtrl.removeUserFromTeam());
 */
 
-router.get('/', teammemberCtrl.getAllByTeamId);
+router.get('/', cors(), teammemberCtrl.getAllByTeamId);
 
-router.get('/:id', teammemberCtrl.getAllByUserId);
+router.get('/:id', cors(), teammemberCtrl.getAllByUserId);
 
-router.post('/', teammemberCtrl.addUserToTeam());
+router.post('/', cors(), teammemberCtrl.addUserToTeam());
 
-router.delete('/:id', teammemberCtrl.removeUserFromTeam());
+router.delete('/:id', cors(), teammemberCtrl.removeUserFromTeam());
 
 
 module.exports = router;

@@ -1,6 +1,7 @@
 let express = require('express');
 let router = express.Router();
 let userCtrl = require('../controllers/UserController');
+let cors = require('cors');
 //let verifyToken = require('../Auth/VerifyToken');
 
 /*
@@ -19,17 +20,17 @@ router.put('/:id', verifyToken, userCtrl.updateUser);
 router.delete('/:id', verifyToken, userCtrl.deleteUser);
 */
 
-router.get('/login', userCtrl.login);
+router.get('/login', cors(), userCtrl.login);
 
-router.get('/', userCtrl.getUsers);
+router.get('/', cors(), userCtrl.getUsers);
 
-router.get('/:id', userCtrl.getUserById);
+router.get('/:id', cors(), userCtrl.getUserById);
 
-router.post('/', userCtrl.createUser);
+router.post('/', cors(), userCtrl.createUser);
 
-router.put('/:id', userCtrl.updateUser);
+router.put('/:id', cors(), userCtrl.updateUser);
 
-router.delete('/:id', userCtrl.deleteUser);
+router.delete('/:id', cors(), userCtrl.deleteUser);
 
 
 module.exports = router;
