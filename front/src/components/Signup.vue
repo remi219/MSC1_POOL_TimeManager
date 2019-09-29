@@ -40,11 +40,6 @@
                     <md-input v-model="form.password"
                               type="password" />
                   </md-field>
-                  <md-field>
-                    <label>Role</label>
-                    <md-input v-model="form.role"
-                              type="number" />
-                  </md-field>
                 </div>
               </md-card-content>
                 <div class="form_buttons_area">
@@ -111,10 +106,7 @@ export default {
     height: 35px!important;
   }
   .form_button {
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 5px;
-    padding-top: 5px;
+    padding: 5px 20px;
     border: 1px solid blue;
     border-radius: 5px;
     background-color: #00B7FF;

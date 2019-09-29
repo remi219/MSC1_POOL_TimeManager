@@ -9,6 +9,9 @@ import Logout from '../components/Logout';
 import Settings from '../components/Settings';
 import EditProfile from '../components/EditProfile';
 import Home from '../components/Home';
+import HomeEmployee from "../components/HomeEmployee";
+import HomeManager from "../components/HomeManager";
+import HomeAdmin from "../components/HomeAdmin";
 
 Vue.use(Router);
 
@@ -37,6 +40,21 @@ export default new Router({
       path: '/home',
       name: 'Home',
       component: Home,
+    },
+    {
+      path: '/homeemployee',
+      name: 'HomeEmployee',
+      component: HomeEmployee,
+    },
+    {
+      path: '/homemanager',
+      name: 'HomeManager',
+      component: HomeManager,
+    },
+    {
+      path: '/homeadmin',
+      name: 'HomeAdmin',
+      component: HomeAdmin,
     },
     {
       path: '/workingtimes',

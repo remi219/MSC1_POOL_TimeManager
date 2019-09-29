@@ -2,11 +2,9 @@
   <div class="page-container">
     <md-app md-waterfall md-mode="fixed-last">
       <md-app-content>
-        <!-- form for login - give email and password -->
         <div id="from">
           <div class="md-layout md-alignment-center">
-            <md-card class="md-layout-item md-size-30 md-small-size-100"
-                     style="background-color: #e9ecef">
+            <md-card class="md-layout-item md-size-30 md-small-size-100" style="background-color: #e9ecef">
               <md-card-header>
                 <h1>Login</h1>
               </md-card-header>
@@ -18,7 +16,7 @@
                               name="email"
                               id="email"
                               autocomplete="email"
-                              v-model="form.email"/>
+                              v-model="form.email" />
                   </md-field>
                   <md-field>
                     <label>Password</label>

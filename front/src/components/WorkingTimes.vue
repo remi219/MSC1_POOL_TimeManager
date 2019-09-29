@@ -88,15 +88,11 @@
                     start: this.date_start,
                     end: this.date_end
                 };
-                console.log(">>>> getWt range = ", range);
                 wtService.getWorkingTimesByRangeAndUserId(range, this.user.id).then(response => {
-                    console.log(">>>>> getWtByRangeAndUser - response = ", response);
                     this.workingtimes = [];
                     if (response.status === 200 && response.data !== "") {
                         let data = JSON.parse(JSON.stringify(response.data));
-                        console.log(">>>> getWT data = ", this.workingtimes);
                         data.forEach(wt => this.workingtimes.push(wt));
-                        console.log(">>>> getWT this.workingtimes = ", this.workingtimes);
                     } else if (response.status === 200 && response.data === "") {
                         this.msgNoResults = "No working times found for this month";
                     }
@@ -106,12 +102,8 @@
                 let newMonth = this.selected_month;
                 let today = new Date();
                 const lastday = [1,3,5,7,8,10,12].includes(newMonth.id ) ? 31 : 30;
-                console.log(">>>> changeMonth - newMonth = ", newMonth);
-                console.log(">>>> changeMonth - lastday = ", lastday);
                 this.date_start = new Date(today.getFullYear(), newMonth.id - 1, 1);
                 this.date_end = new Date(today.getFullYear(), newMonth.id - 1, lastday);
-                console.log(">>>> changeMonth - date_start = ", this.date_start);
-                console.log(">>>> changeMonth - date_end = ", this.date_end);
                 this.getWorkingTimes();
             },
             deleteWorkingTime(index) {
@@ -155,7 +147,6 @@
     font-size: 14px;
   }
   th {
-
     font-size: 16px;
     text-align: center!important;
   }
