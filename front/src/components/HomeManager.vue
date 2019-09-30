@@ -28,7 +28,7 @@
 
             <md-card class="md-layout-item md-size-20 md-small-size-100" style="background-color: #e9ecef">
               <div class="container_team_data">
-                <div>You are a the manager of the team {{ teamData.teamName }}.</div>
+                <div>You are the manager of the team {{ teamData.teamName }}.</div>
                 <div v-if="teamData.teamSize > 1">There are {{ teamData.teamSize }} employees in this team.</div>
                 <div v-else>There is only {{ teamData.teamSize }} employee in this team.</div>
                 <div class="team_management_area">

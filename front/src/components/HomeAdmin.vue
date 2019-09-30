@@ -4,13 +4,12 @@
             <md-app-content>
                 <div>
                     <div class="md-layout md-alignment-left">
-                        <md-card class="md-layout-item md-size-30 md-small-size-100" style="background-color: #e9ecef">
+                        <md-card class="md-layout-item md-size-40 md-small-size-100" style="background-color: #e9ecef">
                             <md-card-header>
                                 <h2>{{ welcomeTitle }}</h2>
                             </md-card-header>
-
                             <div class="container_users_management">
-                                <div>Users ({{ usersList.length }}):</div>
+                                <div style="margin-bottom: 15px;">Users ({{ usersList.length }}):</div>
                                 <div v-if="usersList.length > 0" class="block_list_users">
                                     <table>
                                         <thead>
@@ -61,7 +60,6 @@
         </md-app>
     </div>
 </template>
-
 
 <script>
     import userService from '../services/UsersService';
