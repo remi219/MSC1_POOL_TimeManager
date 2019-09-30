@@ -21,83 +21,98 @@
 </template>
 
 <script>
-import clockerService from '../services/ClockerService';
+    import clockerService from '../services/ClockerService';
+    import wtService from '../services/WorkingtimeService';
 
-export default {
-  name: 'ClockManager',
-  data() {
-    return {
-      clockIsRunning: false,
-      currentDateTime: Date.now(),
-      currentActiveTime: Date.now(),
-      timeOnStart: Date.now(),
-      timeOnStop: Date.now(),
-      onDutyMsg: '-',
+    export default {
+        name: 'ClockManager',
+        data: function () {
+            return {
+                clockIsRunning: false,
+                currentDateTime: null,
+                currentActiveTime: null,
+                timeOnStart: null,
+                timeOnStop: null,
+                onDutyMsg: "-"
+            };
+        },
+        created() {
+            if (localStorage.clockData) {
+                this.clockIsRunning = JSON.parse(localStorage.clockData).clockIsRunning;
+                this.timeOnStart = JSON.parse(localStorage.clockData).timeOnStart;
+                this.timeOnStop = JSON.parse(localStorage.clockData).timeOnStop;
+            } else {
+                this.timeOnStart = Date.now();
+                this.timeOnStop = Date.now();
+            }
+            this.getUserActiveTime();
+            setInterval(() => {
+                this.currentDateTime = Date.now();
+            }, 1);
+        },
+        methods: {
+            persist() {
+                const clockData = {
+                    clockIsRunning: this.clockIsRunning,
+                    timeOnStart: this.timeOnStart,
+                    timeOnStop: this.timeOnStop
+                };
+                localStorage.clockData = JSON.stringify(clockData);
+            },
+            doClockin() {
+                let clockData = {
+                    status: true,
+                    time: Date.now(),
+                    user_id: JSON.parse(localStorage.user).id
+                };
+                clockerService.updateClock(clockData).then(response => {
+                    console.log(">>>> updateClock - response = ", response);
+                    if (response.status === 200 && response.data !== "") {
+                        this.clockIsRunning = true;
+                        this.timeOnStart = Date.now();
+                        this.persist();
+                        this.onDutyMsg = "Your working time is recording..."
+                    }
+                }).catch(error => console.log(">>>> clocckin error : ", error));
+            },
+            doClockout() {
+                this.currentActiveTime = Date.now();
+                let clockData = {
+                    status: false,
+                    time: Date.now(),
+                    user_id: JSON.parse(localStorage.user).id
+                };
+                clockerService.updateClock(clockData).then(response => {
+                    console.log(">>>> clockout updateClock - response = ", response);
+                    this.clockIsRunning = false;
+                    this.timeOnStop = Date.now();
+                    this.persist();
+                    this.onDutyMsg = "Last clock event: "+this.timeOnStop.toLocaleString('en-US');
+                }).catch(error => console.log("clockout error : ", error));
+                const workingtime = {
+                    id_user: JSON.parse(localStorage.user).id,
+                    start: this.timeOnStart,
+                    end: this.timeOnStop
+                };
+                wtService.createWorkingtime(workingtime).then(response => {
+                    console.log("doClockin createWT - response = ", response)
+                }).catch(error => console.log(error));
+            },
+            getUserActiveTime() {
+                console.log(">>>> localStorage.user = ", localStorage.user);
+                clockerService.getClock(JSON.parse(localStorage.user).id).then(response => {
+                    let userActiveTime = Date.now();
+                    if (response.status === 200 && response.data !== "") {
+                        console.log("getUserActiveTime - response = ", response);
+                        userActiveTime = response.data.time;
+                    }
+                    this.currentActiveTime = userActiveTime;
+                    console.log(">>>> this.currentActiveTime = ", this.currentActiveTime);
+                    this.onDutyMsg = this.clockIsRunning ? "Your working time is recording..." : "Last clock event: "+userActiveTime.toLocaleString('en-US');
+                }).catch(error => this.onDutyMsg = error);
+            }
+        }
     };
-  },
-  created() {
-    this.getUserActiveTime();
-    if (localStorage.clockIsRunning) {
-      this.clockIsRunning = localStorage.clockIsRunning;
-    }
-    setInterval(() => {
-      this.currentDateTime = Date.now();
-    }, 1);
-  },
-  methods: {
-    persist() {
-      console.log('>>>>> persist - clockIsRunning = ', this.clockIsRunning);
-      localStorage.clockIsRunning = this.clockIsRunning;
-    },
-    doClockin() {
-      const clockData = {
-        status: true,
-        time: Date.now(),
-        user_id: JSON.parse(localStorage.user).id,
-      };
-      clockerService.updateClock(clockData).then((response) => {
-        console.log('>>>> updateClock - response = ', response);
-        if (response.status === 200 && response.data !== '') {
-          this.clockIsRunning = true;
-          this.persist();
-          this.timeOnStart = Date.now();
-          this.onDutyMsg = 'Your working time is recording...';
-        } else {
-          alert('Unable to clock you in');
-        }
-      }).catch(error => console.log('>>>> clocckin error : ', error));
-    },
-    doClockout() {
-      this.currentActiveTime = Date.now();
-      const clockData = {
-        status: false,
-        time: Date.now(),
-        user_id: JSON.parse(localStorage.user).id,
-      };
-      clockerService.updateClock(clockData).then((response) => {
-        console.log('>>>> response = ', response);
-        this.clockIsRunning = false;
-        this.persist();
-        this.timeOnStop = Date.now();
-        this.onDutyMsg = `Last clock event: ${this.timeOnStop}`;
-      }).catch(error => console.log('clockout error : ', error));
-    },
-    getUserActiveTime() {
-      console.log('>>>> localStorage.user = ', localStorage.user);
-      clockerService.getClock(JSON.parse(localStorage.user).id).then((response) => {
-        let userActiveTime = Date.now();
-        if (response.status === 200 && response.data !== '') {
-          console.log('getUserActiveTime - response = ', response);
-          userActiveTime = response.data.time;
-        }
-        this.currentActiveTime = userActiveTime;
-        console.log('>>>> this.currentActiveTime = ', this.currentActiveTime);
-        this.onDutyMsg = `Last clock event: ${userActiveTime}`;
-        // eslint-disable-next-line no-return-assign
-      }).catch(error => this.onDutyMsg = error);
-    },
-  },
-};
 
 </script>
 

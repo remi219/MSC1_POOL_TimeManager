@@ -2,11 +2,9 @@
   <div class="page-container">
     <md-app md-waterfall md-mode="fixed-last">
       <md-app-content>
-        <!-- form for login - give email and password -->
         <div id="from">
           <div class="md-layout md-alignment-center">
-            <md-card class="md-layout-item md-size-90"
-                     style="background-color: #e9ecef">
+            <md-card class="md-layout-item md-size-30 md-small-size-100" style="background-color: #e9ecef">
               <md-card-header>
                 <h1>Login</h1>
               </md-card-header>
@@ -18,7 +16,7 @@
                               name="email"
                               id="email"
                               autocomplete="email"
-                              v-model="form.email"/>
+                              v-model="form.email" />
                   </md-field>
                   <md-field>
                     <label>Password</label>
@@ -29,14 +27,8 @@
               </md-card-content>
 
               <div class="form_buttons_area">
-                <button class="form_button"
-                        @click="doLogin">
-                     <img src="../assets/icon/login.png"
-                          class="form_button_image" />LOGIN</button>
-                <button class="form_button"
-                        @click="doSignup">
-                     <img src="../assets/icon/sign-up.png"
-                           class="form_button_image" />SIGNUP</button>
+                <button class="form_button" @click="doLogin"><img src="../assets/icon/login.png" class="form_button_image" />LOGIN</button>
+                <button class="form_button" @click="doSignup"><img src="../assets/icon/sign-up.png" class="form_button_image" />SIGNUP</button>
               </div>
             </md-card>
           </div>
@@ -48,44 +40,62 @@
 
 
 <script>
-import UsersService from '../services/UsersService';
-import router from '../router';
+    import UsersService from '../services/UsersService';
+    import clockerService from '../services/ClockerService';
+    import router from '../router';
 
-export default {
-  name: 'Login',
-  data() {
-    return {
-      form: {
-        email: null,
-        password: null,
-      },
-      user: null,
-    };
-  },
-  methods: {
-    persist() {
-      console.log('>>>>> user = %o', this.user);
-      localStorage.user = JSON.stringify(this.user);
-    },
-    doLogin() {
-      UsersService.findUser(this.form).then((response) => {
-        console.log('>>>> login response = ', response);
-        if (response.status === 200 && response.data !== '') {
-          this.user = response.data;
-          this.persist();
-          router.push('/home');
-        } else {
-          console.log('Fail to login : ', response);
-          alert('No corresponding user found. Please verify your data or create an account');
+    export default {
+        name: 'Login',
+        data() {
+            return {
+                form: {
+                    email: null,
+                    password: null
+                },
+                user: null
+            };
+        },
+        created() {
+            if (localStorage) {
+                if (!localStorage.getItem('firstLoad')) {
+                    localStorage['firstLoad'] = true;
+                    window.location.reload();
+                } else {
+                    localStorage.removeItem('firstLoad');
+                }
+            }
+        },
+        methods: {
+            persist() {
+                console.log(">>>>> user = %o", this.user);
+                localStorage.user = JSON.stringify(this.user);
+            },
+            doLogin() {
+                UsersService.findUser(this.form).then(response => {
+                    console.log(">>>> login response = ", response);
+                    if (response.status === 200 && response.data !== "") {
+                        this.user = response.data;
+                        this.persist();
+                        try {
+                            const user_id = JSON.parse(localStorage.user).id;
+                            clockerService.createClock(user_id).then(response => {
+                                console.log(response);
+                            }).catch(e => console.log(">>>> error : ", e));
+                        } catch (e) {
+                            console.log(">>>> error : ", e);
+                        }
+                        router.push("/home");
+                    } else {
+                        console.log("Fail to login : ", response);
+                        alert("No corresponding user found. Please verify your data or create an account");
+                    }
+                });
+            },
+            doSignup() {
+                router.push("/signup");
+            },
         }
-      });
-    },
-    doSignup() {
-      router.push('/signup');
-    },
-
-  },
-};
+    };
 </script>
 
 <style>

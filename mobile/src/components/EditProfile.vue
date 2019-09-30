@@ -6,7 +6,7 @@
         <!-- form for editing profile -->
         <div id="from">
           <div class="md-layout md-alignment-center">
-            <md-card class="md-layout-item md-size-90"
+            <md-card class="md-layout-item md-size-30 md-small-size-100"
                      style="background-color: #e9ecef">
               <md-card-header>
                 <h1>Edit Profile</h1>
@@ -48,20 +48,22 @@
                   </md-field>
                 </div>
               </md-card-content>
-              <div class="form_buttons_area">
-                <button class="form_button"
-                        @click="doCancel">
-                 <img src="../assets/icon/cancel.png"
-                      class="form_button_image" />
-                 CANCEL
-                </button>
-                <button class="form_button"
-                        @click="doSave">
-                  <img src="../assets/icon/save.png"
-                       class="form_button_image" />
-                  SAVE
-                </button>
-              </div>
+              <md-card-actions>
+                <md-button class="md-icon-button"
+                           style="margin: auto">
+                  <router-link
+                    style="color: #FFFF;"
+                    :to="{ path: 'UserEmployee'}"><img src="../assets/icon/cancel.png"/>
+                  </router-link>
+                </md-button>
+                <md-button class="md-icon-button"
+                           style="margin: auto">
+                  <router-link
+                    style="color: #FFFF;"
+                    :to="{ path: 'UserEmployee'}"><img src="../assets/icon/save.png"/>
+                  </router-link>
+                </md-button>
+              </md-card-actions>
             </md-card>
           </div>
         </div>
@@ -71,50 +73,21 @@
 </template>
 
 <script>
-import router from '../router';
-
-export default {
-  name: 'EditProfile',
-  data() {
-    return {
-      form: {
-        firstname: '',
-        lastname: '',
-        email: '',
-        password: '12345',
-      },
-    };
-  },
-
-  methods: {
-        doCancel() {
-          router.push('/homeemployee');
+  export default {
+    name: 'EditProfile',
+    data() {
+      return {
+        form: {
+          firstname: '',
+          lastname: '',
+          email: '',
+          password: '12345',
         },
-        doSave() {
-          router.push('/homeemployee');
-        },
-     },
-};
+      };
+    },
+  };
 </script>
 
 <style scoped>
 
- .form_button_image {
-    width: 35px!important;
-    height: 35px!important;
-  }
-  .form_button {
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 5px;
-    padding-top: 5px;
-    border: 1px solid blue;
-    border-radius: 5px;
-    background-color: #00B7FF;
-    color: azure!important;
-    margin: 20px;
-  }
-  .form_buttons_area {
-    display: inline-block;
-  }
 </style>

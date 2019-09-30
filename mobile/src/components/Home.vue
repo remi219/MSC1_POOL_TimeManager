@@ -38,16 +38,16 @@ export default {
       let homepage = '';
       switch (this.user.id_role) {
         case 1:
-          homepage = '/HomeAdmin';
+          homepage = '/homeadmin';
           break;
         case 2:
-          homepage = '/HomeManager';
+          homepage = '/homemanager';
           break;
         case 3:
-          homepage = '/HomeEmployee';
+          homepage = '/homeemployee';
           break;
         default:
-          homepage = '/Home';
+          homepage = '/home';
       }
       router.push(homepage);
     }

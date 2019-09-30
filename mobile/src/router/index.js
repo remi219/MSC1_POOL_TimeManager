@@ -1,19 +1,17 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import WorkingTimes from '../components/WorkingTimes';
+import WorkingTime from "../components/WorkingTime";
 import Signup from '../components/Signup';
 import Login from '../components/Login';
-import Logout from '../components/Logout';
-import Home from '../components/Home';
-import HomeEmployee from '../components/HomeEmployee';
-import HomeAdmin from '../components/HomeAdmin';
-import HomeManager from '../components/HomeManager';
-import GraphManager from '../components/GraphManager';
-import EditProfile from '../components/EditProfile';
-import WorkingTimes from '../components/WorkingTimes';
-import Calendar from '../components/Calendar';
 import Clocker from '../components/Clocker';
-import UsersManager from '../components/UsersManager';
-import TeamsManager from '../components/TeamsManager';
+import Logout from '../components/Logout';
+import Settings from '../components/Settings';
+import EditProfile from '../components/EditProfile';
+import Home from '../components/Home';
+import HomeEmployee from "../components/HomeEmployee";
+import HomeManager from "../components/HomeManager";
+import HomeAdmin from "../components/HomeAdmin";
 
 Vue.use(Router);
 
@@ -49,14 +47,14 @@ export default new Router({
       component: HomeEmployee,
     },
     {
-      path: '/homeadmin',
-      name: 'HomeAdmin',
-      component: HomeAdmin,
-    },
-    {
       path: '/homemanager',
       name: 'HomeManager',
       component: HomeManager,
+    },
+    {
+      path: '/homeadmin',
+      name: 'HomeAdmin',
+      component: HomeAdmin,
     },
     {
       path: '/workingtimes',
@@ -64,9 +62,9 @@ export default new Router({
       component: WorkingTimes,
     },
     {
-      path: '/calendar',
-      name: 'Calendar',
-      component: Calendar,
+      path: '/workingtime/:id',
+      name: 'WorkingTime',
+      component: WorkingTime,
     },
     {
       path: '/clocker',
@@ -74,24 +72,15 @@ export default new Router({
       component: Clocker,
     },
     {
-      path: '/graphmanager',
-      name: 'GraphManager',
-      component: GraphManager,
+      path: '/settings',
+      name: 'Settings',
+      component: Settings,
     },
     {
       path: '/editprofile',
       name: 'EditProfile',
       component: EditProfile,
     },
-    {
-      path: '/usersmanager',
-      name: 'UsersManager',
-      component: UsersManager,
-    },
-    {
-      path: '/teamsmanager',
-      name: 'TeamsManager',
-      component: TeamsManager,
-    },
+
   ],
 });

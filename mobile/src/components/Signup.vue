@@ -7,7 +7,7 @@
         <!-- form for sign up -->
         <div id="from">
           <div class="md-layout md-alignment-center">
-            <md-card class="md-layout-item md-size-90"
+            <md-card class="md-layout-item md-size-30 md-small-size-100"
                      style="background-color: #e9ecef">
               <md-card-header>
                 <h1>Sign up</h1>
@@ -39,11 +39,6 @@
                     <label>Password</label>
                     <md-input v-model="form.password"
                               type="password" />
-                  </md-field>
-                  <md-field>
-                    <label>Role</label>
-                    <md-input v-model="form.role"
-                              type="number" />
                   </md-field>
                 </div>
               </md-card-content>
@@ -111,10 +106,7 @@ export default {
     height: 35px!important;
   }
   .form_button {
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 5px;
-    padding-top: 5px;
+    padding: 5px 20px;
     border: 1px solid blue;
     border-radius: 5px;
     background-color: #00B7FF;
