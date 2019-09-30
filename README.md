@@ -3,7 +3,7 @@
 Time tracking application with team management tool and data visualization.
 
 ## Tips
-The TimeManager application is running on an AWS instance and you can reach it here http://54.198.162.120:8080/
+The TimeManager application is running on an AWS instance reachable here http://54.198.162.120:8080/
 
 However if you prefer running it locally, use the following instructions.
 
