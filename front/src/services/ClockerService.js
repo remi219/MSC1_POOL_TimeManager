@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const urlBase = 'http://localhost:3001/Clocker';
-//const urlBase = devServer.proxy+'/Clocker';
+//const urlBase = 'http://localhost:3001/Clocker';
+const urlBase = devServer.proxy+'/Clocker';
 
 export default {
   createClock(user_id) {
