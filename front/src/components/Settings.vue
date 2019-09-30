@@ -11,10 +11,10 @@
               </md-card-header>
               <md-card-content>
                 <div class="md-layout-item">
-                  <router-link style="color: #FFFF;" :to="{ path: 'EditProfile' }">Edit your profile</router-link>
+                  <router-link style="font-size: 14px;" :to="{ name: 'EditProfile', params: { id: this.currentUser.id } }">Edit your profile</router-link>
                 </div>
                 <div class="md-layout-item">
-                  <router-link style="color: #FFFF;" :to="{ path: 'Settings' }" disabled="true">Customize appearance</router-link>
+                  <router-link style="font-size: 14px;" :to="{ path: 'Settings' }" disabled="true">Customize appearance</router-link>
                 </div>
               </md-card-content>
             </md-card>
@@ -26,13 +26,18 @@
 </template>
 
 <script>
-export default {
-  name: 'Settings',
-  data() {
-    return {
-    };
-  },
-};
+  export default {
+    name: 'Settings',
+    data() {
+      return {
+      };
+    },
+    created() {
+      if (localStorage.user) {
+        this.currentUser = JSON.parse(localStorage.user);
+      }
+    },
+  };
 </script>
 
 <style scoped>

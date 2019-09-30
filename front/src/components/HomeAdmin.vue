@@ -4,7 +4,7 @@
             <md-app-content>
                 <div>
                     <div class="md-layout md-alignment-left">
-                        <md-card class="md-layout-item md-size-40 md-small-size-100" style="background-color: #e9ecef">
+                        <md-card class="md-layout-item md-size-35 md-small-size-100" style="background-color: #e9ecef">
                             <md-card-header>
                                 <h2>{{ welcomeTitle }}</h2>
                             </md-card-header>
@@ -23,7 +23,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr v-for="user in usersList">
+                                        <tr v-for="(user, index) in usersList">
                                             <td>{{ user.id }}</td>
                                             <td>{{ user.firstname }}</td>
                                             <td>{{ user.lastname }}</td>
@@ -31,7 +31,8 @@
                                             <td v-if="user.id_role === 1">Administrator</td>
                                             <td v-else-if="user.id_role === 2">Manager</td>
                                             <td v-else>Employee</td>
-                                            <td><button class="button_edit">Edit</button><button class="button_delete">Delete</button></td>
+                                            <td v-if="user.id !== currentUser.id"><router-link class="button_edit" :to="{ name: 'EditProfile', params: { id: user.id } }" style="color: black!important;">Edit</router-link><button class="button_delete" @click="deleteUser(index)">Delete</button></td>
+                                            <td v-else><router-link class="button_edit" :to="{ name: 'EditProfile', params: { id: user.id } }" style="color: black!important;">Edit</router-link></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -49,7 +50,7 @@
                             </div>
                         </md-card>
 
-                        <md-card class="md-layout-item md-size-40 md-small-size-100" style="background-color: #e9ecef">
+                        <md-card class="md-layout-item md-size-35 md-small-size-100" style="background-color: #e9ecef">
                             <div class="container_chart_area">
                                 <div>CHART AREA</div>
                             </div>
@@ -68,7 +69,7 @@
         name: 'HomeManager',
         data() {
             return {
-                user: null,
+                currentUser: null,
                 clockData: null,
                 usersList: [],
                 welcomeTitle: "Welcome",
@@ -78,8 +79,8 @@
         },
         created() {
             if (localStorage.user) {
-                this.user = JSON.parse(localStorage.user);
-                this.welcomeTitle = "Welcome "+(this.user.firstname ? this.user.firstname : "");
+                this.currentUser = JSON.parse(localStorage.user);
+                this.welcomeTitle = "Welcome "+(this.currentUser.firstname ? this.currentUser.firstname : "");
             }
             if (localStorage.clockData) {
                 this.clockData = JSON.parse(localStorage.clockData);
@@ -109,11 +110,25 @@
                     console.log("getUsersList - error : ", error);
                 })
             },
+            deleteUser(index) {
+                userService.deleteUser(this.usersList[index].id).then(response => {
+                    if (response.status === 200) {
+                        alert("User deleted");
+                        this.getUsersList();
+                    }
+                }).catch(error => {
+                    console.log(">>>> deleteUser - error : ", error);
+                })
+            }
         }
     };
 </script>
 
 <style scoped>
+    th, td {
+        padding: 0 5px;
+        margin: 0 5px;
+    }
     .container_users_management {
         padding: 15px;
     }
@@ -147,7 +162,6 @@
         border-radius: 8px;
         padding: 5px 15px;
         margin: 5px;
-        margin-right: 2px!important;
         font-size: 14px;
     }
     .container_chart_area {

@@ -7,6 +7,10 @@ export default {
   getAllUsers() {
     return axios.get(urlBase).catch(error => console.log('>>>>> error : ', error));
   },
+  getOneById(id_user) {
+    const url = `${urlBase}/${id_user}`;
+    return axios.get(url).catch(error => console.log('>>>>> error : ', error));
+  },
   createUser(form) {
     let data = {
       user: {
@@ -31,4 +35,22 @@ export default {
     const url = `${urlBase}/login`;
     return axios.get(url, data).catch(error => console.log('>>>> error : ', error));
   },
+  updateUser(form, id_user) {
+    const data = {
+      user: {
+        id: id_user,
+        firstname: form.firstname,
+        lastname: form.lastname,
+        email: form.email,
+        password: form.password,
+        id_role: form.role,
+      }
+    };
+    const url = `${urlBase}/${id_user}`;
+    return axios.put(url, data).catch(error => console.log('>>>> error : ', error));
+  },
+  deleteUser(id_user) {
+    const url = `${urlBase}/${id_user}`;
+    return axios.delete(url).catch(error => console.log('>>>> error : ', error));
+  }
 };

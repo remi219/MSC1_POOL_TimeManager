@@ -77,7 +77,7 @@ export default new Router({
       component: Settings,
     },
     {
-      path: '/editprofile',
+      path: '/editprofile/:id',
       name: 'EditProfile',
       component: EditProfile,
     },

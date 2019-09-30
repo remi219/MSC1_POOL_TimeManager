@@ -9,7 +9,7 @@ let teammemberCtrl = require('../controllers/TeamMemberController');
 
 module.exports = {
     login: function(req, res) {
-        /*const hashedPassword = bcrypt.hashSync(req.body.user.password, 8);
+        /*
         const user = req.body.user;
         jwt.sign({user : user}, secretkey, { expiresIn: '2h' }, (error, token) => {
             res.json({
@@ -26,7 +26,7 @@ module.exports = {
                 /*password: password*/
             }
         }).then(user => {
-            if (user !== undefined) {
+            if (user !== undefined && user !== null) {
                 bcrypt.compare(password, user.password, function(err, match) {
                     if (match) {
                         res.status(200).json(user);
@@ -99,7 +99,7 @@ module.exports = {
     },
     signup: function(req, res) {
         models.User.create(req.body.user)
-            .then(user => res.status(200).send(user))
+            .then(user => res.status(200).json(user))
             .catch(error => res.status(500).send(error));
     },
     updateUser: function(req, res) {
@@ -107,9 +107,14 @@ module.exports = {
             if (error) {
                 res.status(401).json({ status: 401, message: "Unauthorized" });
             } else {*/
-        models.User.update({ user: req.body.user }, { where: { id: req.params.id } })
-            .then(res.status(200).json({ message:'User successfully updated!' /*, authData: authData*/ }))
-            .catch(error => res.status(500).json(error));
+        console.log(">>>> updateUser - req.body = ", req.body);
+        console.log(">>>> updateUser - req.params.id = ", req.params.id);
+        models.User.findOne({ where: { id: req.params.id } }).then(user => {
+            console.log(">>>> updateUser - find user = ", user);
+            user.update(req.body.user).then(user => {
+                res.status(200).json(user);
+            }).catch(error => res.status(500).json(error));
+        }).catch(error => res.status(500).json(error));
         /*}
     });*/
     },

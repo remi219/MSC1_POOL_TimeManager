@@ -7,8 +7,7 @@
         <!-- form for sign up -->
         <div id="from">
           <div class="md-layout md-alignment-center">
-            <md-card class="md-layout-item md-size-30 md-small-size-100"
-                     style="background-color: #e9ecef">
+            <md-card class="md-layout-item md-size-30 md-small-size-100" style="background-color: #e9ecef">
               <md-card-header>
                 <h1>Sign up</h1>
               </md-card-header>
@@ -18,7 +17,7 @@
                     <img src="../assets/avatar/avatar-1.jpg" alt="People">
                   </md-avatar>
                   <md-field>
-                    <label>Fisrt Name</label>
+                    <label>First Name</label>
                     <md-input autocomplete="given-name"
                               v-model="form.firstname" />
                   </md-field>
