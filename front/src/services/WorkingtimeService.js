@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-const urlBase = 'http://54.198.162.120:3001/Workingtimes';
+const urlBase = 'http://localhost:3001/Workingtimes';
+//const urlBase = devServer.proxy+'/Workingtimes';
 
 export default {
   getWorkingTimesByRangeAndUserId: function (range, user_id) {

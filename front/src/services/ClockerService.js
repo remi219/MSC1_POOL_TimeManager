@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const urlBase = 'http://54.198.162.120:3001/Clocker';
+const urlBase = 'http://localhost:3001/Clocker';
+//const urlBase = devServer.proxy+'/Clocker';
 
 export default {
-  // eslint-disable-next-line camelcase
   createClock(user_id) {
     console.log('>>>> createClock - user_id = ', user_id);
     const data = {
@@ -15,9 +15,7 @@ export default {
     };
     return axios.post(urlBase, data).catch(error => console.log('>>>>> error : ', error));
   },
-  // eslint-disable-next-line camelcase
   getClock(user_id) {
-    // eslint-disable-next-line camelcase
     const url = `${urlBase}/${user_id}`;
     return axios.get(url).catch(error => console.log('>>>>> error : ', error));
   },

@@ -92,7 +92,7 @@
                 const workingtime = {
                     id_user: JSON.parse(localStorage.user).id,
                     start: this.timeOnStart,
-                    end: this.timeOnStop
+                    end: Date.now()
                 };
                 wtService.createWorkingtime(workingtime).then(response => {
                     console.log("doClockin createWT - response = ", response)

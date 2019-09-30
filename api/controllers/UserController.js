@@ -1,6 +1,6 @@
 let express = require('express');
-/*let jwt = require('jsonwebtoken');
-var bcrypt = require('bcryptjs');*/
+/*let jwt = require('jsonwebtoken');*/
+let bcrypt = require('bcryptjs');
 let models = require('../models/index');
 const secretkey = 'mysecretkey';
 let clockCtrl = require('../controllers/ClockingController');
@@ -11,7 +11,7 @@ module.exports = {
     login: function(req, res) {
         /*const hashedPassword = bcrypt.hashSync(req.body.user.password, 8);
         const user = req.body.user;
-        jwt.sign({user : user}, secretkey, { expiresIn: '2h'}, (error, token) => {
+        jwt.sign({user : user}, secretkey, { expiresIn: '2h' }, (error, token) => {
             res.json({
                 token: token
             });
@@ -23,11 +23,17 @@ module.exports = {
         models.User.findOne({
             where: {
                 email: email,
-                password: password
+                /*password: password*/
             }
         }).then(user => {
             if (user !== undefined) {
-                res.status(200).send(user);
+                bcrypt.compare(password, user.password, function(err, match) {
+                    if (match) {
+                        res.status(200).json(user);
+                    } else {
+                        res.status(401).send('Wrong password');
+                    }
+                });
             } else {
                 res.status(404).send('User not found');
             }
@@ -66,15 +72,28 @@ module.exports = {
             return res.json({ token: token });
         });
     },*/
+
     createUser: function(req, res) {
         /*jwt.verify(req.token, secretkey, (error, authData) => {
             if (error) {
                 res.json({ status: 401, message: "Unauthorized" });
             } else {*/
         console.log(">>>>>>>> req.body = ", req.body);
-        models.User.create(req.body)
-            .then(user => { res.json(user); })
-            .catch(error => res.status(500).send(error));
+        bcrypt.hash(req.body.password, 10, function(err, hash) {
+            console.log(">>>> hash = ", hash);
+            let user = {
+                firstname: req.body.firstname,
+                lastname: req.body.lastname,
+                email: req.body.email,
+                password: hash,
+                id_role: req.body.id_role
+            };
+            console.log(">>>>>>>> user = ", user);
+            models.User.create(user)
+                .then(user => { res.json(user); })
+                .catch(error => res.status(500).send(error));
+        });
+
         /*}
     });*/
     },
