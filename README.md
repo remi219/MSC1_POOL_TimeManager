@@ -68,7 +68,7 @@ email: remi@test.com
 password: remi
 ```
 
-##License
+## License
 The full repository is accessible here: https://github.com/remi219/MSC1_POOL_TimeManager
 
 .
