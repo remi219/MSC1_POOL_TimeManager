@@ -43,8 +43,8 @@ password: admin
 ```  
 2. Manager:
 ```bash
-email: dani@test.com
-password: dani
+email: emma@test.com
+password: emma
 ```  
 3. Employee:
 ```bash
