@@ -12,7 +12,7 @@ However if you prefer running it locally, use the following instructions.
 Install Docker and docker-compose (cf. Google)
 
 ## Usage
-Since the application is configured to be run on an AWS instance, you'll need to modify the front/src/env.js file in order to be able to run it on your localhost.
+Since the application is configured to be run on an AWS instance, you'll need to modify the **front/src/env.js** file in order to be able to run it on your localhost.
 Open it and comment the line declaring the urlHost as the AWS instance public IP and uncomment the one with localhost instead:
 
 ```js
@@ -69,4 +69,6 @@ password: remi
 ```
 
 ##License
-The full repository is accessible here: https://github.com/remi219/MSC1_POOL_TimeManager  
+The full repository is accessible here: https://github.com/remi219/MSC1_POOL_TimeManager
+
+.
