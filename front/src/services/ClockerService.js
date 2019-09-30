@@ -1,11 +1,10 @@
 import axios from 'axios';
+import env from '../env';
 
-//const urlBase = 'http://localhost:3001/Clocker';
-const urlBase = 'http://54.198.162.120:3001/Clocker';
+const urlBase = env.urlHost+'/Clocker';
 
 export default {
   createClock(user_id) {
-    console.log('>>>> createClock - user_id = ', user_id);
     const data = {
       clocker: {
         id_user: user_id,
@@ -20,7 +19,6 @@ export default {
     return axios.get(url).catch(error => console.log('>>>>> error : ', error));
   },
   updateClock(clockData) {
-    console.log('>>>>> updateclock - clcokData = ', clockData);
     const data = {
       clocker: {
         id_user: clockData.user_id,

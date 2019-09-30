@@ -1,7 +1,7 @@
 import axios from 'axios';
+import env from '../env';
 
-//const urlBase = 'http://localhost:3001/Users';
-const urlBase = 'http://54.198.162.120:3001/Users';
+const urlBase = env.urlHost+'/Users';
 
 export default {
   getAllUsers() {

@@ -1,7 +1,7 @@
 import axios from 'axios'
+import env from '../env';
 
-//const urlBase = 'http://localhost:3001/Workingtimes';
-const urlBase = 'http://54.198.162.120:3001/Workingtimes';
+const urlBase = env.urlHost+'/Workingtimes';
 
 export default {
   getWorkingTimesByRangeAndUserId: function (range, user_id) {
@@ -15,12 +15,10 @@ export default {
     return axios.get(urlBase, data);
   },
   getWorkingtimeById: function (workingtimeData) {
-    console.log(">>>> Service createWorkintime - workingtime = ", workingtimeData);
     const url =  urlBase+'/'+workingtimeData.id_user+'/'+workingtimeData.id_wt;
     return axios.get(url);
   },
   createWorkingtime: function (workingtimeData) {
-    console.log(">>>> Service createWorkintime - workingtime = ", workingtimeData);
     let data = {
       id_user: workingtimeData.id_user,
       start: workingtimeData.start,
@@ -30,7 +28,6 @@ export default {
     return axios.post(url, data);
   },
   updateWorkingtime: function (workingtimeData) {
-    console.log(">>>> createWorkintime - workingtime = ", workingtimeData);
     let data = {
       id_user: workingtimeData.user_id,
       start: workingtimeData.start,
