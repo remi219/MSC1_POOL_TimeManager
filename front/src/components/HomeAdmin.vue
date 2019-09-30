@@ -127,7 +127,7 @@
 <style scoped>
     th, td {
         padding: 0 5px;
-        margin: 0 5px;
+        margin: 2px 5px;
     }
     .container_users_management {
         padding: 15px;
@@ -160,7 +160,7 @@
         color: white;
         border: 1px solid black;
         border-radius: 8px;
-        padding: 5px 15px;
+        padding: 3px 15px;
         margin: 5px;
         font-size: 14px;
     }
