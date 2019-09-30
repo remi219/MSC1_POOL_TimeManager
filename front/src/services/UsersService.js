@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const urlBase = 'http://localhost:3001/Users';
+const urlBase = 'http://54.198.162.120:3001/Users';
 
 export default {
   getAllUsers() {
