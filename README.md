@@ -3,7 +3,7 @@
 Time tracking application with team management tool and data visualization.
 
 ## Tips
-The TimeManager application is running on an AWS instance reachable here http://54.198.162.120:8080/
+The TimeManager application is running on an AWS instance reachable here http://34.238.172.100:8080/
 
 However if you prefer running it locally, use the following instructions.
 
@@ -20,7 +20,7 @@ export default {
     /* Run on localhost */
     //urlHost: 'http://localhost:3001',   // UNCOMMENT THIS LINE
     /* Run on AWS instance */
-    urlHost: 'http://54.198.162.120:3001',   // COMMENT THIS LINE
+    urlHost: 'http://34.238.172.100:3001',   // COMMENT THIS LINE
 };
 ``` 
 Then save the changes and go back to the root of repository.
